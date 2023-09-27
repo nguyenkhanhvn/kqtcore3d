@@ -32,7 +32,6 @@
 .vscode
 Makefile*
 Thumbs.db
-core
 moc_*.cpp
 qrc_*.cpp
 tags
@@ -134,9 +133,7 @@ compile_commands.json
 /lib/
 /lib64/
 /libexec/
-debug/
 ipch/
-release/
 tmp/
 .cache/clangd/
 # ignore both a directory as well as a symlink
