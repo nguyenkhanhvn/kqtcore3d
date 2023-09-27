@@ -4,13 +4,16 @@
 
 using namespace kqtcore3d;
 
-bool initializeQQuickWindow(GraphicApi platform)
+static RendererApi s_graphic = RendererApi::Unknown;
+
+bool initializeQQuickWindow(RendererApi platform)
 {
     switch (platform)
     {
     case OpenGL:
 #ifdef WIN32
     {
+        s_graphic = RendererApi::OpenGL;
         QSurfaceFormat fmt;
         fmt.setVersion(3, 3);//use modern opengl
         fmt.setProfile(QSurfaceFormat::CoreProfile);
@@ -31,7 +34,13 @@ bool initializeQQuickWindow(GraphicApi platform)
 #endif
     break;
     case Unknown:
+        s_graphic = RendererApi::Unknown;
         return false;
     }
     return false;
+}
+
+RendererApi getRendererApi()
+{
+    return s_graphic;
 }

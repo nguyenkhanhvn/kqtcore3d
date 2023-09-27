@@ -2,24 +2,41 @@
 #define MESH_H
 
 
-#include "common.h"
+#include <QMatrix4x4>
+
+#include "interfaces/idrawable.h"
+#include "interfaces/ivertices.h"
 
 namespace kqtcore3d
 {
 
-class Mesh
+template<typename I>
+class Mesh : IDrawable
 {
 public:
-    Mesh(const QVector<Vertex>& vertices, const QVector<unsigned int>& indices, QMatrix4x4 modelMatrix = QMatrix4x4());
+    Mesh(const QSharedPointer<IVertices>& vertices, const QVector<I>& indices, QMatrix4x4 modelMatrix = QMatrix4x4()) :
+        m_vertices(vertices), m_indices(indices), m_modelMatrix(modelMatrix)
+    {}
 
-    virtual QVector<Vertex> vertices() const;
-    virtual QVector<unsigned int> indices() const;
-    virtual QMatrix4x4 getModelMatrix() const;
+    virtual ~Mesh() {}
+
+    virtual QSharedPointer<IVertices> vertices() const
+    {
+        return m_vertices;
+    }
+    virtual QVector<I> indices() const
+    {
+        return m_indices;
+    }
+    virtual QMatrix4x4 getModelMatrix() const
+    {
+        return m_modelMatrix;
+    }
 
 
 protected:
-    QVector<Vertex> m_vertices;
-    QVector<unsigned int> m_indices;
+    QSharedPointer<IVertices> m_vertices;
+    QVector<I> m_indices;
 
     QMatrix4x4 m_modelMatrix;
 };

@@ -7,24 +7,81 @@
 namespace kqtcore3d
 {
 
-class Model
+#define ALL_MESHES_DO_FUNCTION(functionName, ...)   \
+    for (QSharedPointer<Mesh> mesh : m_meshes)      \
+    {                                               \
+        mesh->functionName(__VA_ARGS__);            \
+    }
+
+
+template<typename I>
+class Model : public IDrawable
 {
 public:
-    Model(const QVector<QSharedPointer<Mesh>>& meshes = QVector<QSharedPointer<Mesh>>(), QSharedPointer<IModelImporter> importer = QSharedPointer<IModelImporter>());
-    virtual ~Model();
+    Model(const QVector<QSharedPointer<Mesh<I>>>& meshes = QVector<QSharedPointer<Mesh<I>>>(), QSharedPointer<IModelImporter<I>> importer = QSharedPointer<IModelImporter<I>>()) :
+        m_importer(importer)
+    {}
+    virtual ~Model() {}
 
-    virtual void setImporter(QSharedPointer<IModelImporter> importer);
-    virtual bool loadModel(const QString &filename);
-    virtual bool loadModelFromMemory(const QByteArray &data);
+    virtual bool loadModel(const QString &filename)
+    {
+        if(m_importer)
+        {
+            ModelImporterData<I> loadedData = m_importer->loadModel(filename);
+            if(loadedData.isLoaded)
+            {
+                m_meshes = loadedData.meshes;
+                return true;
+            }
+        }
+        return false;
+    }
+    virtual bool loadModelFromMemory(const QByteArray &data)
+    {
+        if(m_importer)
+        {
+            ModelImporterData<I> loadedData = m_importer->loadModelFromMemory(data);
+            if(loadedData.isLoaded)
+            {
+                m_meshes = loadedData.meshes;
+                return true;
+            }
+        }
+        return false;
+    }
 
-    virtual QVector<QSharedPointer<Mesh>> getMeshes() const;
-    virtual void setMeshes(QVector<QSharedPointer<Mesh>> meshes);
-    virtual void addMeshes(QVector<QSharedPointer<Mesh>> meshes);
-    virtual void addMesh(QSharedPointer<Mesh> mesh);
+    virtual QSharedPointer<IModelImporter<I>> getImporter() const
+    {
+        return m_importer;
+    }
+    virtual void setImporter(QSharedPointer<IModelImporter<I>> importer)
+    {
+        if (m_importer != importer)
+        {
+            m_importer = importer;
+        }
+    }
+    virtual QVector<QSharedPointer<Mesh<I>>> getMeshes() const
+    {
+        return m_meshes;
+    }
+    virtual void setMeshes(QVector<QSharedPointer<Mesh<I>>> meshes)
+    {
+        m_meshes = meshes;
+    }
+    virtual void addMeshes(QVector<QSharedPointer<Mesh<I>>> meshes)
+    {
+        m_meshes.append(meshes);
+    }
+    virtual void addMesh(QSharedPointer<Mesh<I>> mesh)
+    {
+        m_meshes.append(mesh);
+    }
+
 
 protected:
-    QSharedPointer<IModelImporter> m_importer;
-    QVector<QSharedPointer<Mesh>> m_meshes;
+    QSharedPointer<IModelImporter<I>> m_importer;
+    QVector<QSharedPointer<Mesh<I>>> m_meshes;
 
 };
 

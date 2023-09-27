@@ -13,11 +13,10 @@ file(GLOB_RECURSE  SOURCE_FILES "src/*.cpp")
 add_library(kqtcore3d STATIC
     ${HEADER_FILES}
     ${SOURCE_FILES}
-    include/interfaces/IDrawable.h
 )
 
-include_directories(include include/core include/graphics)
-target_include_directories(kqtcore3d PRIVATE include/graphics/opengl)
+include_directories(include include/core include/renderers)
+target_include_directories(kqtcore3d PRIVATE include/renderers/opengl)
 
 target_link_libraries(kqtcore3d
     PRIVATE

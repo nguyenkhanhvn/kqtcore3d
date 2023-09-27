@@ -3,13 +3,13 @@
 
 
 #include "common.h"
-#include "model.h"
-#include "camera.h"
 
 namespace kqtcore3d
 {
 
-bool initializeQQuickWindow(GraphicApi platform = GraphicApi::OpenGL);
+bool initializeQQuickWindow(RendererApi platform = RendererApi::OpenGL);
+
+RendererApi getRendererApi();
 
 }
 

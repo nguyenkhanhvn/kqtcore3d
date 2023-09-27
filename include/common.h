@@ -5,17 +5,21 @@
 #include <QVector3D>
 #include <QVector4D>
 #include <QMatrix4x4>
+#include <QOpenGLFunctions>
 
 namespace kqtcore3d
 {
 
-struct Vertex
-{
-    QVector3D position;
-    QVector4D color;
+struct ShaderProgramLayout {
+    int attribLocation;
+    QString name;
+    GLenum type;
+    int offset;
+    int tupleSize;
 };
 
-enum GraphicApi
+
+enum RendererApi
 {
     OpenGL = 0,
     Unknown,
