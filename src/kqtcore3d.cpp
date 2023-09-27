@@ -10,7 +10,7 @@ bool initializeQQuickWindow(RendererApi platform)
 {
     switch (platform)
     {
-    case OpenGL:
+    case RendererApi::OpenGL:
 #ifdef WIN32
     {
         s_graphic = RendererApi::OpenGL;
@@ -33,7 +33,7 @@ bool initializeQQuickWindow(RendererApi platform)
 #endif
 #endif
     break;
-    case Unknown:
+    case RendererApi::Unknown:
         s_graphic = RendererApi::Unknown;
         return false;
     }

@@ -7,18 +7,18 @@
 namespace kqtcore3d
 {
 
-#define ALL_MESHES_DO_FUNCTION(functionName, ...)   \
-    for (QSharedPointer<Mesh> mesh : m_meshes)      \
+#define ALL_MESHES_DO_FUNCTION(functionName, meshType, ...)   \
+for (QSharedPointer<Mesh<meshType>> mesh : m_meshes)      \
     {                                               \
         mesh->functionName(__VA_ARGS__);            \
     }
 
 
 template<typename I>
-class Model : public IDrawable
+class Model : public IRenderable
 {
 public:
-    Model(const QVector<QSharedPointer<Mesh<I>>>& meshes = QVector<QSharedPointer<Mesh<I>>>(), QSharedPointer<IModelImporter<I>> importer = QSharedPointer<IModelImporter<I>>()) :
+    Model(const QVector<QSharedPointer<Mesh<I>>>& meshes = QVector<QSharedPointer<Mesh<I>>>(), QSharedPointer<IModelImporter<I>> importer = nullptr) :
         m_importer(importer)
     {}
     virtual ~Model() {}

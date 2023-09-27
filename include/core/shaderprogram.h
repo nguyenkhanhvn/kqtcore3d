@@ -3,15 +3,15 @@
 
 
 #include "common.h"
+#include "interfaces/irendercallback.h"
 
 namespace kqtcore3d
 {
 
-template<typename T>
-class ShaderProgram
+class ShaderProgram : public IRenderCallbacks
 {
 public:
-    ShaderProgram(const QVector<ShaderProgramLayout>& layout) :
+    ShaderProgram(const QVector<ShaderProgramLayout> layout = QVector<ShaderProgramLayout>()) :
         m_layout(layout)
     {}
 
@@ -21,7 +21,6 @@ public:
     virtual void setAttributeBuffer(int layoutIndex, int stride) = 0;
     virtual void setAllAttributeBuffer(int stride) = 0;
 
-    virtual void setUniformValue(int location, T value) = 0;
 
     virtual QVector<ShaderProgramLayout> getLayouts() const
     {
@@ -31,11 +30,11 @@ public:
     {
         m_layout = layout;
     }
-    virtual void addLayout(ShaderProgramLayout layout);
+    virtual void addLayout(ShaderProgramLayout layout)
     {
         m_layout.append(layout);
     }
-    virtual void addLayout(QString name, GLenum type, int offset, int tupleSize);
+    virtual void addLayout(QString name, GLenum type, int offset, int tupleSize)
     {
         m_layout.append({-1, name, type, offset, tupleSize});
     }
@@ -43,7 +42,6 @@ public:
     {
         m_layout.append({attribLocation, "", type, offset, tupleSize});
     }
-
 
 private:
     QVector<ShaderProgramLayout> m_layout;
