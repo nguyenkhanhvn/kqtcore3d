@@ -10,13 +10,12 @@ find_package(Qt6 6.5 REQUIRED COMPONENTS Quick OpenGL)
 
 file(GLOB_RECURSE  HEADER_FILES "include/*.h")
 file(GLOB_RECURSE  SOURCE_FILES "src/*.cpp")
-add_library(kqtcore3d STATIC
+qt_add_library(kqtcore3d STATIC
     ${HEADER_FILES}
     ${SOURCE_FILES}
 )
 
-include_directories(include include/core include/renderers)
-target_include_directories(kqtcore3d PRIVATE include/renderers/opengl)
+include_directories(include)
 
 target_link_libraries(kqtcore3d
     PRIVATE

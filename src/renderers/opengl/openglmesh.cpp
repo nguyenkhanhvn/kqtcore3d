@@ -1,4 +1,4 @@
-#include "openglmesh.h"
+#include "kqtcore3d/renderers/opengl/openglmesh.h"
 
 using namespace kqtcore3d;
 

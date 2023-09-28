@@ -1,8 +1,9 @@
-#include "kqtcore3d.h"
+#include "kqtcore3d/kqtcore3d.h"
 
 #include <QQuickWindow>
 
 using namespace kqtcore3d;
+
 
 static RendererApi s_graphic = RendererApi::Unknown;
 

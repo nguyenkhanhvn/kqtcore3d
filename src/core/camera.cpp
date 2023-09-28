@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "kqtcore3d/core/camera.h"
 
 using namespace kqtcore3d;
 
@@ -7,7 +7,7 @@ Camera::Camera(QVector3D position, QVector3D orientation, QVector3D up) :
     m_position(position), m_orientation(orientation), m_up(up)
 {}
 
-void Camera::inputControl(CameraControl cameraControl, float delta)
+void Camera::cameraControl(CameraControl cameraControl, float delta)
 {
     switch(cameraControl)
     {

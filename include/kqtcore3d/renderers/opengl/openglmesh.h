@@ -5,8 +5,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 
-#include "interfaces/ivertices.h"
-#include "mesh.h"
+#include "kqtcore3d/interfaces/ivertices.h"
+#include "kqtcore3d/core/mesh.h"
 
 namespace kqtcore3d
 {
@@ -14,7 +14,7 @@ namespace kqtcore3d
 class OpenGLMesh : public Mesh<uint>
 {
 public:
-    OpenGLMesh(const QSharedPointer<IVertices>& vertices, const QVector<uint>& indices, QMatrix4x4 modelMatrix = QMatrix4x4());
+    OpenGLMesh(const QSharedPointer<IVertices>& vertices = nullptr, const QVector<uint>& indices = QVector<uint>(), QMatrix4x4 modelMatrix = QMatrix4x4());
 
     // IDrawable interface
     virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;

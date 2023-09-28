@@ -2,7 +2,7 @@
 #define IMODELIMPORTER_H
 
 
-#include "mesh.h"
+#include "kqtcore3d/core/mesh.h"
 
 namespace kqtcore3d
 {

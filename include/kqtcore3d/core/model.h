@@ -2,13 +2,13 @@
 #define MODEL_H
 
 
-#include "interfaces/imodelimporter.h"
+#include "kqtcore3d/interfaces/imodelimporter.h"
 
 namespace kqtcore3d
 {
 
 #define ALL_MESHES_DO_FUNCTION(functionName, meshType, ...)   \
-for (QSharedPointer<Mesh<meshType>> mesh : m_meshes)      \
+for (const QSharedPointer<Mesh<meshType>>& mesh : m_meshes)      \
     {                                               \
         mesh->functionName(__VA_ARGS__);            \
     }
@@ -18,7 +18,7 @@ template<typename I>
 class Model : public IRenderable
 {
 public:
-    Model(const QVector<QSharedPointer<Mesh<I>>>& meshes = QVector<QSharedPointer<Mesh<I>>>(), QSharedPointer<IModelImporter<I>> importer = nullptr) :
+    Model(const QVector<QSharedPointer<Mesh<I>>>& meshes, QSharedPointer<IModelImporter<I>> importer) :
         m_importer(importer)
     {}
     virtual ~Model() {}

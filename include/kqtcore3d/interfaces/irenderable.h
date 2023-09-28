@@ -2,7 +2,9 @@
 #define IRENDERABLE_H
 
 
-#include "interfaces/irendercallback.h"
+#include <QSharedPointer>
+
+#include "kqtcore3d/interfaces/irendercallback.h"
 
 namespace kqtcore3d
 {

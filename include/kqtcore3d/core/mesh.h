@@ -4,8 +4,8 @@
 
 #include <QMatrix4x4>
 
-#include "interfaces/irenderable.h"
-#include "interfaces/ivertices.h"
+#include "kqtcore3d/interfaces/irenderable.h"
+#include "kqtcore3d/interfaces/ivertices.h"
 
 namespace kqtcore3d
 {
@@ -14,7 +14,7 @@ template<typename I>
 class Mesh : public IRenderable
 {
 public:
-    Mesh(const QSharedPointer<IVertices>& vertices, const QVector<I>& indices, QMatrix4x4 modelMatrix = QMatrix4x4()) :
+    Mesh(const QSharedPointer<IVertices>& vertices, const QVector<I>& indices, QMatrix4x4 modelMatrix) :
         m_vertices(vertices), m_indices(indices), m_modelMatrix(modelMatrix)
     {}
 

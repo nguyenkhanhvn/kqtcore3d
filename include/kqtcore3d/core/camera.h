@@ -4,7 +4,7 @@
 
 #include <QMatrix4x4>
 
-#include "common.h"
+#include "kqtcore3d/common.h"
 
 namespace kqtcore3d
 {
@@ -14,7 +14,7 @@ class Camera
 public:
     Camera(QVector3D position = QVector3D(0, 0, 0), QVector3D orientation = QVector3D(0, 0, -1), QVector3D up = QVector3D(0, 1, 0));
 
-    virtual void inputControl(CameraControl cameraControl, float delta = 1);
+    virtual void cameraControl(CameraControl cameraControl, float delta = 1);
 
     virtual QMatrix4x4 getCameraView() const = 0;
     virtual QMatrix4x4 getCameraMatrix() const;
