@@ -1,5 +1,5 @@
-#ifndef SHADERPROGRAM_H
-#define SHADERPROGRAM_H
+#ifndef BASESHADERPROGRAM_H
+#define BASESHADERPROGRAM_H
 
 
 #include "kqtcore3d/common.h"
@@ -7,10 +7,10 @@
 namespace kqtcore3d
 {
 
-class ShaderProgram
+class BaseShaderProgram
 {
 public:
-    ShaderProgram(const QVector<ShaderProgramLayout> layout = QVector<ShaderProgramLayout>()) :
+    BaseShaderProgram(const QVector<ShaderProgramLayout> layout) :
         m_layout(layout)
     {}
 
@@ -34,4 +34,4 @@ private:
 
 }
 
-#endif // SHADERPROGRAM_H
+#endif // BASESHADERPROGRAM_H

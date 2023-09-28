@@ -1,5 +1,5 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef BASEMODEL_H
+#define BASEMODEL_H
 
 
 #include "kqtcore3d/interfaces/imodelimporter.h"
@@ -8,20 +8,20 @@ namespace kqtcore3d
 {
 
 #define ALL_MESHES_DO_FUNCTION(functionName, meshType, ...)   \
-for (const QSharedPointer<Mesh<meshType>>& mesh : m_meshes)      \
+for (const QSharedPointer<BaseMesh<meshType>>& mesh : m_meshes)      \
     {                                               \
         mesh->functionName(__VA_ARGS__);            \
     }
 
 
 template<typename I>
-class Model : public IRenderable
+class BaseModel : public IRenderable
 {
 public:
-    Model(const QVector<QSharedPointer<Mesh<I>>>& meshes, QSharedPointer<IModelImporter<I>> importer) :
+    BaseModel(const QVector<QSharedPointer<BaseMesh<I>>>& meshes, QSharedPointer<IModelImporter<I>> importer) :
         m_importer(importer)
     {}
-    virtual ~Model() {}
+    virtual ~BaseModel() {}
 
     virtual bool loadModel(const QString &filename)
     {
@@ -61,19 +61,19 @@ public:
             m_importer = importer;
         }
     }
-    virtual QVector<QSharedPointer<Mesh<I>>> getMeshes() const
+    virtual QVector<QSharedPointer<BaseMesh<I>>> getMeshes() const
     {
         return m_meshes;
     }
-    virtual void setMeshes(QVector<QSharedPointer<Mesh<I>>> meshes)
+    virtual void setMeshes(QVector<QSharedPointer<BaseMesh<I>>> meshes)
     {
         m_meshes = meshes;
     }
-    virtual void addMeshes(QVector<QSharedPointer<Mesh<I>>> meshes)
+    virtual void addMeshes(QVector<QSharedPointer<BaseMesh<I>>> meshes)
     {
         m_meshes.append(meshes);
     }
-    virtual void addMesh(QSharedPointer<Mesh<I>> mesh)
+    virtual void addMesh(QSharedPointer<BaseMesh<I>> mesh)
     {
         m_meshes.append(mesh);
     }
@@ -81,10 +81,10 @@ public:
 
 protected:
     QSharedPointer<IModelImporter<I>> m_importer;
-    QVector<QSharedPointer<Mesh<I>>> m_meshes;
+    QVector<QSharedPointer<BaseMesh<I>>> m_meshes;
 
 };
 
 }
 
-#endif // MODEL_H
+#endif // BASEMODEL_H

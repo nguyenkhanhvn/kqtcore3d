@@ -1,5 +1,5 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef BASECAMERA_H
+#define BASECAMERA_H
 
 
 #include <QMatrix4x4>
@@ -9,10 +9,10 @@
 namespace kqtcore3d
 {
 
-class Camera
+class BaseCamera
 {
 public:
-    Camera(QVector3D position = QVector3D(0, 0, 0), QVector3D orientation = QVector3D(0, 0, -1), QVector3D up = QVector3D(0, 1, 0));
+    BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, QMatrix4x4 projection, QMatrix4x4 view);
 
     virtual void cameraControl(CameraControl cameraControl, float delta = 1);
 
@@ -27,11 +27,11 @@ protected:
     QVector3D m_orientation;
     QVector3D m_up;
 
-    QMatrix4x4 m_proj;
+    QMatrix4x4 m_projection;
     QMatrix4x4 m_view;
 
 };
 
 }
 
-#endif // CAMERA_H
+#endif // BASECAMERA_H

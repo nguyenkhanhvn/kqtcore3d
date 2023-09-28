@@ -4,8 +4,8 @@
 
 #include "common.h"
 #include "core/core.h"
-#include "renderers/opengl/openglmesh.h"
-#include "renderers/opengl/openglmodel.h"
+#include "renderers/mesh.h"
+//#include "renderers/model.h"
 
 namespace kqtcore3d
 {
