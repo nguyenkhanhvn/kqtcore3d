@@ -10,14 +10,30 @@
 namespace kqtcore3d
 {
 
-struct ShaderProgramLayout {
-    int attribLocation;
-    QString name;
+// unknow attribLocation -> set to <
+struct ShaderLayout {
+    int attribLocation = -1;
+    const char* name;
     GLenum type;
     int offset;
     int tupleSize;
 };
 
+struct ShaderUniform {
+
+};
+
+
+enum KType {
+    Float,
+    Int,
+    Vector2D,
+    Vector3D,
+    Vector4D,
+    Matrix2x2,
+    Matrix3x3,
+    Matrix4x4,
+};
 
 enum RendererApi
 {

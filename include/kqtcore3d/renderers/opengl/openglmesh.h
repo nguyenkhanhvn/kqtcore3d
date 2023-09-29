@@ -20,11 +20,13 @@ public:
     virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
     virtual void render(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
 
+    // Mesh interface
+    virtual void renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callBack) override;
+
 private:
     QSharedPointer<QOpenGLVertexArrayObject> m_vao;
     QSharedPointer<QOpenGLBuffer> m_vbo;
     QSharedPointer<QOpenGLBuffer> m_ebo;
-
 
 };
 

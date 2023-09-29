@@ -1,0 +1,24 @@
+#include "mesh.h"
+
+#include "kqtcore3d.h"
+#include "opengl/openglmesh.h"
+
+using namespace kqtcore3d;
+
+
+QSharedPointer<Mesh> Mesh::create(const QSharedPointer<IVertices> &vertices, const QVector<uint> &indices, QMatrix4x4 meshMatrix)
+{
+    switch(getRendererApi())
+    {
+    case OpenGL:
+        return QSharedPointer<OpenGLMesh>::create(vertices, indices, meshMatrix);
+        break;
+    case Unknown:
+        break;
+    }
+    return nullptr;
+}
+
+Mesh::Mesh(const QSharedPointer<IVertices> &vertices, const QVector<uint> &indices, QMatrix4x4 meshMatrix) :
+    BaseMesh<uint>(vertices, indices, meshMatrix)
+{}

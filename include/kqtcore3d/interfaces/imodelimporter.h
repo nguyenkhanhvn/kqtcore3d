@@ -7,19 +7,19 @@
 namespace kqtcore3d
 {
 
-template<typename I>
+template<typename IndexType>
 struct ModelImporterData
 {
     bool isLoaded = false;
-    QVector<QSharedPointer<BaseMesh<I>>> meshes;
+    QVector<QSharedPointer<BaseMesh<IndexType>>> meshes;
 };
 
-template<typename I>
+template<typename IndexType>
 class IModelImporter
 {
 public:
-    virtual ModelImporterData<I> loadModel(const QString &filename) = 0;
-    virtual ModelImporterData<I> loadModelFromMemory(const QByteArray &data) = 0;
+    virtual ModelImporterData<IndexType> loadModel(const QString &filename) = 0;
+    virtual ModelImporterData<IndexType> loadModelFromMemory(const QByteArray &data) = 0;
 };
 
 }

@@ -10,11 +10,11 @@
 namespace kqtcore3d
 {
 
-template<typename I>
+template<typename IndexType>
 class BaseMesh : public IRenderable
 {
 public:
-    BaseMesh(const QSharedPointer<IVertices>& vertices, const QVector<I>& indices, QMatrix4x4 meshMatrix) :
+    BaseMesh(const QSharedPointer<IVertices>& vertices, const QVector<IndexType>& indices, QMatrix4x4 meshMatrix) :
         m_vertices(vertices), m_indices(indices), m_meshMatrix(meshMatrix)
     {}
 
@@ -24,7 +24,7 @@ public:
     {
         return m_vertices;
     }
-    virtual QVector<I> indices() const
+    virtual QVector<IndexType> indices() const
     {
         return m_indices;
     }
@@ -33,10 +33,25 @@ public:
         return m_meshMatrix;
     }
 
+    void translate(const QVector3D &vector)
+    {
+        m_meshMatrix.translate(vector);
+    }
+    void rotate(float angle, const QVector3D &rotateAxis)
+    {
+        m_meshMatrix.rotate(angle, rotateAxis);
+    }
+    void rotateGlobal(float angle, const QVector3D &rotateAxis)
+    {
+        QMatrix4x4 globalRotation;
+        globalRotation.rotate(angle, rotateAxis);
+        m_meshMatrix = globalRotation * m_meshMatrix;
+    }
+
 
 protected:
     QSharedPointer<IVertices> m_vertices;
-    QVector<I> m_indices;
+    QVector<IndexType> m_indices;
 
     QMatrix4x4 m_meshMatrix;
 };

@@ -16,7 +16,7 @@ public:
 
     virtual void cameraControl(CameraControl cameraControl, float delta = 1);
 
-    virtual QMatrix4x4 getCameraView() const = 0;
+    virtual QMatrix4x4 getCameraView() const;
     virtual QMatrix4x4 getCameraMatrix() const;
 
 protected:

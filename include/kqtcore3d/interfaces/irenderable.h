@@ -13,9 +13,9 @@ class IRenderable
 {
 public:
     // initialize before render
-    virtual bool init(QSharedPointer<IRenderCallbacks> callBack) = 0;
+    virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) = 0;
 
-    virtual void render(QSharedPointer<IRenderCallbacks> callBack) = 0;
+    virtual void render(QSharedPointer<IRenderCallbacks> callBack = nullptr) = 0;
 };
 
 }
