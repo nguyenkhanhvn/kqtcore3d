@@ -3,8 +3,8 @@
 #include "kqtcore3d.h"
 #include "opengl/openglmodel.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh<uint>>> &meshes, QSharedPointer<IModelImporter<uint>> importer)
 {
@@ -31,3 +31,5 @@ void Model::renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRende
 Model::Model(const QVector<QSharedPointer<BaseMesh<uint>>> &meshes, QSharedPointer<IModelImporter<uint>> importer) :
     BaseModel<uint>(meshes, importer)
 {}
+
+}

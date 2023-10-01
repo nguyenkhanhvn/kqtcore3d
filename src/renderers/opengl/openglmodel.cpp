@@ -1,7 +1,7 @@
 #include "opengl/openglmodel.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 OpenGLModel::OpenGLModel(const QVector<QSharedPointer<BaseMesh<uint>>>& meshes, QSharedPointer<IModelImporter<uint>> importer) :
     Model(meshes, importer)
@@ -20,4 +20,6 @@ bool OpenGLModel::init(QSharedPointer<IRenderCallbacks> callBack)
 void kqtcore3d::OpenGLModel::render(QSharedPointer<IRenderCallbacks> callBack)
 {
     ALL_MESHES_DO_FUNCTION(render, uint, callBack)
+}
+
 }

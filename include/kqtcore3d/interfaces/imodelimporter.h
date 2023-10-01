@@ -18,8 +18,8 @@ template<typename IndexType>
 class IModelImporter
 {
 public:
-    virtual ModelImporterData<IndexType> loadModel(const QString &filename) = 0;
-    virtual ModelImporterData<IndexType> loadModelFromMemory(const QByteArray &data) = 0;
+    virtual ModelImporterData<IndexType> loadModel(const QString &filename, QMatrix4x4 matrix = QMatrix4x4()) = 0;
+    virtual ModelImporterData<IndexType> loadModelFromMemory(const QByteArray &data, QMatrix4x4 matrix = QMatrix4x4()) = 0;
 };
 
 }

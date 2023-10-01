@@ -20,6 +20,7 @@ qt_add_library(kqtcore3d STATIC
     include/kqtcore3d/core/basemesh.h
     include/kqtcore3d/core/basemodel.h
     include/kqtcore3d/core/baseshaderprogram.h src/core/baseshaderprogram.cpp
+    include/kqtcore3d/interfaces/interfaces.h
     include/kqtcore3d/interfaces/imodelimporter.h
     include/kqtcore3d/interfaces/irenderable.h
     include/kqtcore3d/interfaces/irendercallback.h

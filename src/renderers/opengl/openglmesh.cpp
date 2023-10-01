@@ -1,7 +1,7 @@
 #include "opengl/openglmesh.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 OpenGLMesh::OpenGLMesh(const QSharedPointer<IVertices> &vertices, const QVector<uint> &indices, QMatrix4x4 meshMatrix) :
     Mesh(vertices, indices, meshMatrix)
@@ -26,11 +26,9 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
         {
             m_vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
             m_vbo->allocate(m_vertices->getData(), m_vertices->getByteSize());
-            m_vbo->release();
 
             m_ebo->setUsagePattern(QOpenGLBuffer::StaticDraw);
             m_ebo->allocate(m_indices.constData(), m_indices.size() * sizeof(uint));
-            m_ebo->release();
 
             if (!callBack.isNull())
             {
@@ -71,4 +69,6 @@ void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbac
 
         m_vao->release();
     }
+}
+
 }

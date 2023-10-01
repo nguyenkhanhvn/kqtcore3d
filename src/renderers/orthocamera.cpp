@@ -1,7 +1,7 @@
 #include "orthocamera.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 OrthoCamera::OrthoCamera(QVector3D position, float left, float right, float bottom, float top, QVector3D orientation, QVector3D up, float nearPlane, float farPlane, QMatrix4x4 projection, QMatrix4x4 view) :
     BaseCamera(position, orientation, up, projection, view)
@@ -37,4 +37,6 @@ void OrthoCamera::setupOrtho(const QRectF &rect, QMatrix4x4 projection)
 {
     m_projection = projection;
     m_projection.ortho(rect);
+}
+
 }

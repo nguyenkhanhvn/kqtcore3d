@@ -3,8 +3,8 @@
 #include "kqtcore3d.h"
 #include "opengl/openglmesh.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 QSharedPointer<Mesh> Mesh::create(const QSharedPointer<IVertices> &vertices, const QVector<uint> &indices, QMatrix4x4 meshMatrix)
 {
@@ -22,3 +22,5 @@ QSharedPointer<Mesh> Mesh::create(const QSharedPointer<IVertices> &vertices, con
 Mesh::Mesh(const QSharedPointer<IVertices> &vertices, const QVector<uint> &indices, QMatrix4x4 meshMatrix) :
     BaseMesh<uint>(vertices, indices, meshMatrix)
 {}
+
+}

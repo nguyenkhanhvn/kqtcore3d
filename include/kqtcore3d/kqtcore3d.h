@@ -4,10 +4,10 @@
 
 #include "common.h"
 #include "core/core.h"
+#include "interfaces/interfaces.h"
 #include "renderers/renderers.h"
 
-namespace kqtcore3d
-{
+namespace kqtcore3d {
 
 bool initializeQQuickWindow(RendererApi platform = RendererApi::OpenGL);
 

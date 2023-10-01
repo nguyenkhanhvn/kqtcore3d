@@ -1,7 +1,7 @@
 #include "baseshaderprogram.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 QVector<ShaderLayout> BaseShaderProgram::getLayouts() const
 {
@@ -26,4 +26,6 @@ void BaseShaderProgram::addLayout(const char *name, GLenum type, int offset, int
 void BaseShaderProgram::addLayout(int attribLocation, GLenum type, int offset, int tupleSize)
 {
     m_layouts.append({attribLocation, "", type, offset, tupleSize});
+}
+
 }

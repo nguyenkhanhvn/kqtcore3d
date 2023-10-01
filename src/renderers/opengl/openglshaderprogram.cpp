@@ -1,7 +1,7 @@
 #include "opengl/openglshaderprogram.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 OpenGLShaderProgram::OpenGLShaderProgram(const QString& vertexShaderSource, const QString& fragmentShaderSource, const QVector<ShaderLayout>& layout) :
     ShaderProgram(vertexShaderSource, fragmentShaderSource, layout)
@@ -31,18 +31,18 @@ void OpenGLShaderProgram::release()
 
 void OpenGLShaderProgram::setAttributeBuffer(int layoutId, int stride)
 {
-    if (layoutId < m_layouts.size())
+    if (layoutId < m_layouts.size() && m_program.bind())
     {
         const ShaderLayout& layout = m_layouts.at(layoutId);
         if (layout.attribLocation >= 0)
         {
             m_program.enableAttributeArray(layout.attribLocation);
-            m_program.setAttributeBuffer(layout.attribLocation, layout.type, layout.offset, stride);
+            m_program.setAttributeBuffer(layout.attribLocation, layout.type, layout.offset, layout.tupleSize, stride);
         }
         else if (layout.name && layout.name[0])
         {
             m_program.enableAttributeArray(layout.name);
-            m_program.setAttributeBuffer(layout.name, layout.type, layout.offset, stride);
+            m_program.setAttributeBuffer(layout.name, layout.type, layout.offset, layout.tupleSize, stride);
         }
     }
 }
@@ -51,7 +51,7 @@ void OpenGLShaderProgram::setAllAttributeBuffer(int stride)
 {
     for (const ShaderLayout& layout : m_layouts)
     {
-        if (layout.attribLocation >= 0)
+        if (layout.attribLocation >= 0 && m_program.bind())
         {
             m_program.enableAttributeArray(layout.attribLocation);
             m_program.setAttributeBuffer(layout.attribLocation, layout.type, layout.offset, stride);
@@ -67,4 +67,6 @@ void OpenGLShaderProgram::setAllAttributeBuffer(int stride)
 void OpenGLShaderProgram::initAttribBufferCallBack(int stride)
 {
     setAllAttributeBuffer(stride);
+}
+
 }

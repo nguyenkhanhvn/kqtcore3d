@@ -3,8 +3,8 @@
 #include "kqtcore3d.h"
 #include "opengl/openglshaderprogram.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 QSharedPointer<ShaderProgram> ShaderProgram::create(const QString& vertexShaderSource, const QString& fragmentShaderSource, const QVector<ShaderLayout>& layout)
 {
@@ -32,3 +32,5 @@ QString ShaderProgram::getFragmentShaderSource() const
 ShaderProgram::ShaderProgram(const QString &vertexShaderSource, const QString &fragmentShaderSource, const QVector<ShaderLayout> &layout) :
     BaseShaderProgram(layout), m_vsSource(vertexShaderSource), m_fsSource(fragmentShaderSource)
 {}
+
+}

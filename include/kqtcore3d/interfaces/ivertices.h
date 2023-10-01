@@ -2,6 +2,9 @@
 #define IVERTICES_H
 
 
+namespace kqtcore3d
+{
+
 class IVertices
 {
 public:
@@ -10,5 +13,7 @@ public:
     virtual int getByteSize() = 0;
     virtual int getStride() = 0;
 };
+
+}
 
 #endif // IVERTICES_H

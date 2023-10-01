@@ -1,7 +1,7 @@
 #include "perspectivecamera.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 PerspectiveCamera::PerspectiveCamera(QVector3D position, float verticalAngle, float aspectRatio, QVector3D orientation, QVector3D up, float nearPlane, float farPlane, QMatrix4x4 projection, QMatrix4x4 view) :
     BaseCamera(position, orientation, up, projection, view)
@@ -13,4 +13,6 @@ void PerspectiveCamera::setupPerspective(float verticalAngle, float aspectRatio,
 {
     m_projection = projection;
     m_projection.perspective(verticalAngle, aspectRatio, nearPlane, farPlane);
+}
+
 }

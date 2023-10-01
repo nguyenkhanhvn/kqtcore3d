@@ -1,7 +1,7 @@
 #include "basecamera.h"
 
-using namespace kqtcore3d;
-
+namespace kqtcore3d
+{
 
 BaseCamera::BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, QMatrix4x4 projection, QMatrix4x4 view) :
     m_position(position), m_orientation(orientation), m_up(up), m_projection(projection), m_view(view)
@@ -48,10 +48,12 @@ QMatrix4x4 BaseCamera::getCameraView() const
 {
     QMatrix4x4 view;
     view.lookAt(m_position, m_position + m_orientation, m_up);
-    return m_projection * view;
+    return view;
 }
 
 QMatrix4x4 BaseCamera::getCameraMatrix() const
 {
     return m_projection * getCameraView();
+}
+
 }
