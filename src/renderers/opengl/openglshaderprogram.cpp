@@ -3,7 +3,7 @@
 namespace kqtcore3d
 {
 
-OpenGLShaderProgram::OpenGLShaderProgram(const QString& vertexShaderSource, const QString& fragmentShaderSource, const QVector<ShaderLayout>& layout) :
+OpenGLShaderProgram::OpenGLShaderProgram(const QString& vertexShaderSource, const QString& fragmentShaderSource, const ShaderProgramLayout &layout) :
     ShaderProgram(vertexShaderSource, fragmentShaderSource, layout)
 {}
 
@@ -28,52 +28,52 @@ void OpenGLShaderProgram::release()
     m_program.release();
 }
 
-void OpenGLShaderProgram::setAttributeBuffer(int layoutId, int stride)
+void OpenGLShaderProgram::setAttributeBuffer(int layoutId)
 {
-    if (layoutId < m_layouts.size() && m_program.bind())
+    if (layoutId < m_layout.getElements().size() && m_program.bind())
     {
-        const ShaderLayout& layout = m_layouts.at(layoutId);
-        if (layout.attribLocation >= 0)
+        const ShaderProgramLayoutElement& element = m_layout.getElements().at(layoutId);
+        if (element.attribLocation >= 0)
         {
-            m_program.enableAttributeArray(layout.attribLocation);
-            m_program.setAttributeBuffer(layout.attribLocation, layout.type, layout.offset, layout.tupleSize, stride);
+            m_program.enableAttributeArray(element.attribLocation);
+            m_program.setAttributeBuffer(element.attribLocation, element.type, element.offset, element.tupleSize, m_layout.getStride());
         }
-        else if (layout.name && layout.name[0])
+        else if (element.name && element.name[0])
         {
-            m_program.enableAttributeArray(layout.name);
-            m_program.setAttributeBuffer(layout.name, layout.type, layout.offset, layout.tupleSize, stride);
+            m_program.enableAttributeArray(element.name);
+            m_program.setAttributeBuffer(element.name, element.type, element.offset, element.tupleSize, m_layout.getStride());
         }
         else
         {
             m_program.enableAttributeArray(layoutId);
-            m_program.setAttributeBuffer(layoutId, layout.type, layout.offset, layout.tupleSize, stride);
+            m_program.setAttributeBuffer(layoutId, element.type, element.offset, element.tupleSize, m_layout.getStride());
         }
     }
 }
 
-void OpenGLShaderProgram::setAllAttributeBuffer(int stride)
+void OpenGLShaderProgram::setAllAttributeBuffer()
 {
-    for (uint i = 0; i < m_layouts.size(); i++)
+    for (uint i = 0; i < m_layout.getElements().size(); i++)
     {
-        setAttributeBuffer(i, stride);
+        setAttributeBuffer(i);
     }
 }
 
-void OpenGLShaderProgram::setRawAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride)
+void OpenGLShaderProgram::setAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride)
 {
     m_program.enableAttributeArray(location);
     m_program.setAttributeBuffer(location, type, offset, tupleSize, stride);
 }
 
-void OpenGLShaderProgram::setRawAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride)
+void OpenGLShaderProgram::setAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride)
 {
     m_program.enableAttributeArray(name);
     m_program.setAttributeBuffer(name, type, offset, tupleSize, stride);
 }
 
-void OpenGLShaderProgram::initAttribBufferCallBack(int stride)
+void OpenGLShaderProgram::initCallBack()
 {
-    setAllAttributeBuffer(stride);
+    setAllAttributeBuffer();
 }
 
 }

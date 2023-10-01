@@ -9,7 +9,6 @@ class IRenderCallbacks
 {
 public:
     virtual void initCallBack() {}
-    virtual void initAttribBufferCallBack(int stride) {}
 
     virtual void beforeRenderCallBack() {}
 };

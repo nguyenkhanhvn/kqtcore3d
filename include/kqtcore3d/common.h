@@ -10,15 +10,6 @@
 namespace kqtcore3d
 {
 
-// unknow attribLocation -> set to <
-struct ShaderLayout {
-    int attribLocation = -1;
-    const char* name;
-    GLenum type;
-    int offset;
-    int tupleSize;
-};
-
 enum RendererApi
 {
     OpenGL = 0,

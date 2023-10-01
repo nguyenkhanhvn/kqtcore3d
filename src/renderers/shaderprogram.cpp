@@ -6,7 +6,7 @@
 namespace kqtcore3d
 {
 
-QSharedPointer<ShaderProgram> ShaderProgram::create(const QString& vertexShaderSource, const QString& fragmentShaderSource, const QVector<ShaderLayout>& layout)
+QSharedPointer<ShaderProgram> ShaderProgram::create(const QString& vertexShaderSource, const QString& fragmentShaderSource, const ShaderProgramLayout& layout)
 {
     switch(getRendererApi())
     {
@@ -29,7 +29,7 @@ QString ShaderProgram::getFragmentShaderSource() const
     return m_fsSource;
 }
 
-ShaderProgram::ShaderProgram(const QString &vertexShaderSource, const QString &fragmentShaderSource, const QVector<ShaderLayout> &layout) :
+ShaderProgram::ShaderProgram(const QString &vertexShaderSource, const QString &fragmentShaderSource, const ShaderProgramLayout &layout) :
     BaseShaderProgram(layout), m_vsSource(vertexShaderSource), m_fsSource(fragmentShaderSource)
 {}
 

@@ -3,29 +3,18 @@
 namespace kqtcore3d
 {
 
-QVector<ShaderLayout> BaseShaderProgram::getLayouts() const
+BaseShaderProgram::BaseShaderProgram(const ShaderProgramLayout &layout) :
+    m_layout(layout)
+{}
+
+ShaderProgramLayout BaseShaderProgram::getLayout() const
 {
-    return m_layouts;
+    return m_layout;
 }
 
-void BaseShaderProgram::setLayouts(QVector<ShaderLayout> layouts)
+void BaseShaderProgram::setLayouts(const ShaderProgramLayout &layout)
 {
-    m_layouts = layouts;
-}
-
-void BaseShaderProgram::addLayout(ShaderLayout layout)
-{
-    m_layouts.append(layout);
-}
-
-void BaseShaderProgram::addLayout(const char *name, GLenum type, int offset, int tupleSize)
-{
-    m_layouts.append({-1, name, type, offset, tupleSize});
-}
-
-void BaseShaderProgram::addLayout(int attribLocation, GLenum type, int offset, int tupleSize)
-{
-    m_layouts.append({attribLocation, "", type, offset, tupleSize});
+    m_layout = layout;
 }
 
 }

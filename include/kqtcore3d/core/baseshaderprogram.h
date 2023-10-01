@@ -2,7 +2,9 @@
 #define BASESHADERPROGRAM_H
 
 
-#include "kqtcore3d/common.h"
+#include "shaderprogramlayout.h"
+
+#include <QMatrix4x4>
 
 namespace kqtcore3d
 {
@@ -10,18 +12,16 @@ namespace kqtcore3d
 class BaseShaderProgram
 {
 public:
-    BaseShaderProgram(const QVector<ShaderLayout>& layouts) :
-        m_layouts(layouts)
-    {}
+    BaseShaderProgram(const ShaderProgramLayout& layout);
 
     virtual bool init() = 0;
     virtual bool bind() = 0;
     virtual void release() = 0;
 
-    virtual void setRawAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride = 0) = 0;
-    virtual void setRawAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride = 0) = 0;
-    virtual void setAttributeBuffer(int layoutId, int stride) = 0;
-    virtual void setAllAttributeBuffer(int stride) = 0;
+    virtual void setAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride = 0) {}
+    virtual void setAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride = 0) {}
+    virtual void setAttributeBuffer(int layoutId) = 0;
+    virtual void setAllAttributeBuffer() = 0;
 
     virtual void setUniformValue(int location, GLfloat value) {}
     virtual void setUniformValue(int location, GLint value) {}
@@ -79,14 +79,11 @@ public:
     virtual void setUniformValue(const char *name, const GLfloat value[4][4]) {}
     virtual void setUniformValue(const char *name, const QTransform& value) {}
 
-    virtual QVector<ShaderLayout> getLayouts() const;
-    virtual void setLayouts(QVector<ShaderLayout> layouts);
-    virtual void addLayout(ShaderLayout layout);
-    virtual void addLayout(const char* name, GLenum type, int offset, int tupleSize);
-    virtual void addLayout(int attribLocation, GLenum type, int offset, int tupleSize);
+    virtual ShaderProgramLayout getLayout() const;
+    virtual void setLayouts(const ShaderProgramLayout& layout);
 
 protected:
-    QVector<ShaderLayout> m_layouts;
+    ShaderProgramLayout m_layout;
 
 };
 
