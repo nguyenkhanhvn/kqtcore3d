@@ -10,7 +10,6 @@ OpenGLShaderProgram::OpenGLShaderProgram(const QString& vertexShaderSource, cons
 bool OpenGLShaderProgram::init()
 {
     bool result = true;
-    result &= m_program.bind();
     result &= m_program.addShaderFromSourceCode(QOpenGLShader::Vertex, m_vsSource);
     result &= m_program.addShaderFromSourceCode(QOpenGLShader::Fragment, m_fsSource);
     result &= m_program.link();
@@ -44,24 +43,32 @@ void OpenGLShaderProgram::setAttributeBuffer(int layoutId, int stride)
             m_program.enableAttributeArray(layout.name);
             m_program.setAttributeBuffer(layout.name, layout.type, layout.offset, layout.tupleSize, stride);
         }
+        else
+        {
+            m_program.enableAttributeArray(layoutId);
+            m_program.setAttributeBuffer(layoutId, layout.type, layout.offset, layout.tupleSize, stride);
+        }
     }
 }
 
 void OpenGLShaderProgram::setAllAttributeBuffer(int stride)
 {
-    for (const ShaderLayout& layout : m_layouts)
+    for (uint i = 0; i < m_layouts.size(); i++)
     {
-        if (layout.attribLocation >= 0 && m_program.bind())
-        {
-            m_program.enableAttributeArray(layout.attribLocation);
-            m_program.setAttributeBuffer(layout.attribLocation, layout.type, layout.offset, stride);
-        }
-        else if (layout.name && layout.name[0])
-        {
-            m_program.enableAttributeArray(layout.name);
-            m_program.setAttributeBuffer(layout.name, layout.type, layout.offset, stride);
-        }
+        setAttributeBuffer(i, stride);
     }
+}
+
+void OpenGLShaderProgram::setRawAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride)
+{
+    m_program.enableAttributeArray(location);
+    m_program.setAttributeBuffer(location, type, offset, tupleSize, stride);
+}
+
+void OpenGLShaderProgram::setRawAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride)
+{
+    m_program.enableAttributeArray(name);
+    m_program.setAttributeBuffer(name, type, offset, tupleSize, stride);
 }
 
 void OpenGLShaderProgram::initAttribBufferCallBack(int stride)

@@ -33,7 +33,7 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
             if (!callBack.isNull())
             {
                 callBack->initCallBack();
-                callBack->initAttribBufferCallBack(m_vertices->getByteSize());
+                callBack->initAttribBufferCallBack(m_vertices->getStride());
             }
 
             m_vao->release();

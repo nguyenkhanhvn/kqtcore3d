@@ -19,22 +19,6 @@ struct ShaderLayout {
     int tupleSize;
 };
 
-struct ShaderUniform {
-
-};
-
-
-enum KType {
-    Float,
-    Int,
-    Vector2D,
-    Vector3D,
-    Vector4D,
-    Matrix2x2,
-    Matrix3x3,
-    Matrix4x4,
-};
-
 enum RendererApi
 {
     OpenGL = 0,

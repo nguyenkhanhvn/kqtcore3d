@@ -9,7 +9,7 @@
 
 namespace kqtcore3d {
 
-bool initializeQQuickWindow(RendererApi platform = RendererApi::OpenGL);
+bool kqtcore3dInit(RendererApi platform = RendererApi::OpenGL);
 
 RendererApi getRendererApi();
 

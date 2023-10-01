@@ -20,10 +20,13 @@ public:
     virtual void setAttributeBuffer(int layoutId, int stride) override;
     virtual void setAllAttributeBuffer(int stride) override;
 
+    virtual void setRawAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride) override;
+    virtual void setRawAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride) override;
+
     // IRenderCallbacks interface
     virtual void initAttribBufferCallBack(int stride) override;
 
-
+    // set uniform
     virtual void setUniformValue(int location, GLfloat value) override {m_program.setUniformValue(location, value);}
     virtual void setUniformValue(int location, GLint value) override {m_program.setUniformValue(location, value);}
     virtual void setUniformValue(int location, GLuint value) override {m_program.setUniformValue(location, value);}
@@ -83,7 +86,6 @@ public:
 
 private:
     QOpenGLShaderProgram m_program;
-
 };
 
 }

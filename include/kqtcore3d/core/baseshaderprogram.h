@@ -18,6 +18,8 @@ public:
     virtual bool bind() = 0;
     virtual void release() = 0;
 
+    virtual void setRawAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride = 0) = 0;
+    virtual void setRawAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride = 0) = 0;
     virtual void setAttributeBuffer(int layoutId, int stride) = 0;
     virtual void setAllAttributeBuffer(int stride) = 0;
 
