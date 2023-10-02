@@ -79,6 +79,7 @@ public:
     virtual void setUniformValue(const char *name, const GLfloat value[4][4]) {}
     virtual void setUniformValue(const char *name, const QTransform& value) {}
 
+
     virtual ShaderProgramLayout getLayout() const;
     virtual void setLayouts(const ShaderProgramLayout& layout);
 

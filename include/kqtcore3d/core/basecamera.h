@@ -12,12 +12,17 @@ namespace kqtcore3d
 class BaseCamera
 {
 public:
-    BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, QMatrix4x4 projection, QMatrix4x4 view);
+    BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, QMatrix4x4 projection);
 
     virtual void cameraControl(CameraControl cameraControl, float delta = 1);
 
     virtual QMatrix4x4 getCameraView() const;
+    virtual QMatrix4x4 getCameraProjection() const;
     virtual QMatrix4x4 getCameraMatrix() const;
+
+
+protected:
+    virtual void calculateCameraMatrix();
 
 protected:
     float m_speed = 1.0f;
@@ -29,6 +34,7 @@ protected:
 
     QMatrix4x4 m_projection;
     QMatrix4x4 m_view;
+    QMatrix4x4 m_cameraMatrix;
 
 };
 

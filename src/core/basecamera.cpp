@@ -3,9 +3,11 @@
 namespace kqtcore3d
 {
 
-BaseCamera::BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, QMatrix4x4 projection, QMatrix4x4 view) :
-    m_position(position), m_orientation(orientation), m_up(up), m_projection(projection), m_view(view)
-{}
+BaseCamera::BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, QMatrix4x4 projection) :
+    m_position(position), m_orientation(orientation), m_up(up), m_projection(projection)
+{
+    calculateCameraMatrix();
+}
 
 void BaseCamera::cameraControl(CameraControl cameraControl, float delta)
 {
@@ -42,18 +44,32 @@ void BaseCamera::cameraControl(CameraControl cameraControl, float delta)
         break;
     }
     }
+
+    calculateCameraMatrix();
 }
 
 QMatrix4x4 BaseCamera::getCameraView() const
 {
-    QMatrix4x4 view;
-    view.lookAt(m_position, m_position + m_orientation, m_up);
-    return view;
+    return m_view;
+}
+
+QMatrix4x4 BaseCamera::getCameraProjection() const
+{
+    return m_projection;
 }
 
 QMatrix4x4 BaseCamera::getCameraMatrix() const
 {
-    return m_projection * getCameraView();
+    return m_cameraMatrix;
+}
+
+void BaseCamera::calculateCameraMatrix()
+{
+    QMatrix4x4 view;
+    view.lookAt(m_position, m_position + m_orientation, m_up);
+    m_view = view;
+
+    m_cameraMatrix = m_projection * m_view;
 }
 
 }

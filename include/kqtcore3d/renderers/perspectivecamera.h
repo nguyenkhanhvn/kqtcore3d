@@ -10,9 +10,13 @@ class PerspectiveCamera : public BaseCamera
 {
 public:
     PerspectiveCamera(QVector3D position, float verticalAngle, float aspectRatio, QVector3D orientation, QVector3D up,
-                      float nearPlane, float farPlane, QMatrix4x4 projection, QMatrix4x4 view);
+                      float nearPlane, float farPlane, QMatrix4x4 projection);
 
     virtual void setupPerspective(float verticalAngle, float aspectRatio, float nearPlane, float farPlane, QMatrix4x4 projection = QMatrix4x4());
+
+
+protected:
+    float m_verticalAngle, m_aspectRatio, m_nearPlane, m_farPlane;
 };
 
 }

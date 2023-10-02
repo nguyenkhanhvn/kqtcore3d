@@ -7,7 +7,10 @@
 #include "shaderprogram.h"
 
 namespace kqtcore3d {
-
+#define DECLARE_AND_CALL_FUNCTION(functionName, ...)                      \
+void functionName(__VA_ARGS__) {                                                 \
+        m_program.functionName(__VA_ARGS__);                                      \
+}
 class OpenGLShaderProgram : public ShaderProgram
 {
 public:
