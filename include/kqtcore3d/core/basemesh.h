@@ -6,15 +6,15 @@
 
 #include "kqtcore3d/interfaces/irenderable.h"
 #include "kqtcore3d/interfaces/ivertices.h"
+#include "kqtcore3d/interfaces/iindices.h"
 
 namespace kqtcore3d
 {
 
-template<typename IndexType>
 class BaseMesh : public IRenderable
 {
 public:
-    BaseMesh(const QSharedPointer<IVertices>& vertices, const QVector<IndexType>& indices, QMatrix4x4 meshMatrix) :
+    BaseMesh(const QSharedPointer<IVertices>& vertices, const QSharedPointer<IIndices>& indices, QMatrix4x4 meshMatrix) :
         m_vertices(vertices), m_indices(indices), m_meshMatrix(meshMatrix)
     {}
 
@@ -24,7 +24,7 @@ public:
     {
         return m_vertices;
     }
-    virtual QVector<IndexType> indices() const
+    virtual QSharedPointer<IIndices> indices() const
     {
         return m_indices;
     }
@@ -51,7 +51,7 @@ public:
 
 protected:
     QSharedPointer<IVertices> m_vertices;
-    QVector<IndexType> m_indices;
+    QSharedPointer<IIndices> m_indices;
 
     QMatrix4x4 m_meshMatrix;
 };

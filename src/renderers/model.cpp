@@ -6,7 +6,7 @@
 namespace kqtcore3d
 {
 
-QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh<uint>>> &meshes, QSharedPointer<IModelImporter<uint>> importer)
+QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh> > &meshes, QSharedPointer<IModelImporter> importer)
 {
     switch(getRendererApi())
     {
@@ -19,17 +19,22 @@ QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh<uint>>
     return nullptr;
 }
 
+void Model::render(QSharedPointer<IRenderCallbacks> callBack)
+{
+    ALL_MESHES_DO_FUNCTION(render, callBack)
+}
+
 void Model::renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRenderCallbacks> callBack)
 {
     if (meshId < m_meshes.size())
     {
-        QSharedPointer<Mesh> mesh = qSharedPointerCast<Mesh, BaseMesh<uint>>(m_meshes.at(meshId));
+        QSharedPointer<Mesh> mesh = qSharedPointerCast<Mesh, BaseMesh>(m_meshes.at(meshId));
         if (!mesh.isNull()) mesh->renderPrimitive(primitiveId, callBack);
     }
 }
 
-Model::Model(const QVector<QSharedPointer<BaseMesh<uint>>> &meshes, QSharedPointer<IModelImporter<uint>> importer) :
-    BaseModel<uint>(meshes, importer)
+Model::Model(const QVector<QSharedPointer<BaseMesh> > &meshes, QSharedPointer<IModelImporter> importer) :
+    BaseModel(meshes, importer)
 {}
 
 }

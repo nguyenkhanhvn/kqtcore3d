@@ -2,7 +2,7 @@
 #define OPENGLMODEL_H
 
 
-#include "model.h"
+#include "kqtcore3d/renderers/model.h"
 
 namespace kqtcore3d
 {
@@ -10,10 +10,9 @@ namespace kqtcore3d
 class OpenGLModel : public Model
 {
 public:
-    OpenGLModel(const QVector<QSharedPointer<BaseMesh<uint>>>& meshes = QVector<QSharedPointer<BaseMesh<uint>>>(), QSharedPointer<IModelImporter<uint>> importer = nullptr);
+    OpenGLModel(const QVector<QSharedPointer<BaseMesh>>& meshes = QVector<QSharedPointer<BaseMesh>>(), QSharedPointer<IModelImporter> importer = nullptr);
 
     virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
-    virtual void render(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
 };
 
 }

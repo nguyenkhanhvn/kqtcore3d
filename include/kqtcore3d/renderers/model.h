@@ -6,15 +6,16 @@
 
 namespace kqtcore3d {
 
-class Model : public BaseModel<uint>
+class Model : public BaseModel
 {
 public:
-    static QSharedPointer<Model> create(const QVector<QSharedPointer<BaseMesh<uint>>>& meshes = QVector<QSharedPointer<BaseMesh<uint>>>(), QSharedPointer<IModelImporter<uint>> importer = nullptr);
+    static QSharedPointer<Model> create(const QVector<QSharedPointer<BaseMesh>>& meshes = QVector<QSharedPointer<BaseMesh>>(), QSharedPointer<IModelImporter> importer = nullptr);
 
+    virtual void render(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
     virtual void renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRenderCallbacks> callBack = nullptr);
 
 protected:
-    Model(const QVector<QSharedPointer<BaseMesh<uint>>>& meshes, QSharedPointer<IModelImporter<uint>> importer);
+    Model(const QVector<QSharedPointer<BaseMesh>>& meshes, QSharedPointer<IModelImporter> importer);
 
 };
 

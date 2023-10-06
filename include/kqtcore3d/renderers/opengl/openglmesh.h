@@ -5,8 +5,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 
-#include "ivertices.h"
-#include "mesh.h"
+#include "kqtcore3d/interfaces/ivertices.h"
+#include "kqtcore3d/renderers/mesh.h"
 
 namespace kqtcore3d
 {
@@ -14,7 +14,7 @@ namespace kqtcore3d
 class OpenGLMesh : public Mesh
 {
 public:
-    OpenGLMesh(const QSharedPointer<IVertices>& vertices = nullptr, const QVector<uint>& indices = QVector<uint>(), QMatrix4x4 meshMatrix = QMatrix4x4());
+    OpenGLMesh(const QSharedPointer<IVertices>& vertices = nullptr, const QSharedPointer<IIndices>& indices = nullptr, QMatrix4x4 meshMatrix = QMatrix4x4());
 
     // IDrawable interface
     virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
@@ -22,6 +22,12 @@ public:
 
     // Mesh interface
     virtual void renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callBack) override;
+
+    // OpenGL custom draw
+    virtual void drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callBack = nullptr);
+    virtual void drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callBack = nullptr);
+    /**** Carefull with this option ****/
+    virtual void drawByFunction(void (*drawFunction)(), QSharedPointer<IRenderCallbacks> callBack = nullptr);
 
 private:
     QSharedPointer<QOpenGLVertexArrayObject> m_vao;

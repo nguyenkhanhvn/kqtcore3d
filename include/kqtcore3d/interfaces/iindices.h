@@ -1,20 +1,20 @@
- #ifndef IVERTICES_H
-#define IVERTICES_H
+#ifndef IINDICES_H
+#define IINDICES_H
 
 
 namespace kqtcore3d
 {
 
-class IVertices
+class IIndices
 {
 public:
     virtual const void* getData() = 0;
 
+    virtual int getType() = 0;
     virtual int getSize() = 0;
     virtual int getByteSize() = 0;
-    virtual int getStride() = 0;
 };
 
 }
 
-#endif // IVERTICES_H
+#endif // IINDICES_H
