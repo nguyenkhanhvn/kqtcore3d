@@ -10,6 +10,8 @@
 namespace kqtcore3d
 {
 
+#define LOG qDebug() << "[kqtcore3d]" << << "[" << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "] "
+
 enum RendererApi
 {
     OpenGL = 0,
