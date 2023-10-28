@@ -33,7 +33,9 @@ void OpenGLShaderProgram::release()
 
 void OpenGLShaderProgram::setAttributeBuffer(int layoutId)
 {
+#ifdef RENDER_LOG
     LOG << layoutId;
+#endif
     if (layoutId < m_layout.getElements().size() && m_program.bind())
     {
         const ShaderProgramLayoutElement& element = m_layout.getElements().at(layoutId);
@@ -57,7 +59,9 @@ void OpenGLShaderProgram::setAttributeBuffer(int layoutId)
 
 void OpenGLShaderProgram::setAllAttributeBuffer()
 {
+#ifdef RENDER_LOG
     LOG;
+#endif
     for (uint i = 0; i < m_layout.getElements().size(); i++)
     {
         setAttributeBuffer(i);
@@ -66,14 +70,18 @@ void OpenGLShaderProgram::setAllAttributeBuffer()
 
 void OpenGLShaderProgram::setAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride)
 {
+#ifdef RENDER_LOG
     LOG << "location: " << location << ", type: " << type << ", offset: " <<  offset << ", typleSize: " << tupleSize << ", stride: " << stride;
+#endif
     m_program.enableAttributeArray(location);
     m_program.setAttributeBuffer(location, type, offset, tupleSize, stride);
 }
 
 void OpenGLShaderProgram::setAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride)
 {
+#ifdef RENDER_LOG
     LOG << "name: " << name << ", type: " << type << ", offset: " <<  offset << ", typleSize: " << tupleSize << ", stride: " << stride;
+#endif
     m_program.enableAttributeArray(name);
     m_program.setAttributeBuffer(name, type, offset, tupleSize, stride);
 }

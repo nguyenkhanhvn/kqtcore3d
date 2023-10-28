@@ -8,6 +8,7 @@ set(CMAKE_AUTOMOC ON)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     message("debug mode")
+#    add_definitions(-DRENDER_LOG)
 elseif (CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
     message("release mode")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)

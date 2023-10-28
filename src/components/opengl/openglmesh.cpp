@@ -75,7 +75,9 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
 
 void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callBack)
 {
+#ifdef RENDER_LOG
     LOG;
+#endif
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
@@ -89,6 +91,9 @@ void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callBack)
 
 void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callBack)
 {
+#ifdef RENDER_LOG
+    LOG << primitiveId;
+#endif
     if ((primitiveId * 3) < m_indices->getSize())
     {
         m_vao->bind();
@@ -105,7 +110,9 @@ void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbac
 
 void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callBack)
 {
+#ifdef RENDER_LOG
     LOG << "mode: " << mode << ", count: " << count;
+#endif
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
@@ -119,7 +126,9 @@ void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices,
 
 void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callBack)
 {
+#ifdef RENDER_LOG
     LOG << "mode: " << mode << ", first: " << first << ", count: " << count;
+#endif
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
@@ -133,7 +142,9 @@ void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, QShared
 
 void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callBack)
 {
+#ifdef RENDER_LOG
     LOG;
+#endif
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
