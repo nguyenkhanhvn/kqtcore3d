@@ -1,5 +1,7 @@
 #include "shaderprogramlayout.h"
 
+#include "common.h"
+
 namespace kqtcore3d {
 
 unsigned int ShaderProgramLayoutElement::GetSizeOfType(GLenum type)
@@ -15,6 +17,7 @@ unsigned int ShaderProgramLayoutElement::GetSizeOfType(GLenum type)
 
 void ShaderProgramLayout::push(ShaderProgramLayoutElement &element, bool autoCalculateLocation, bool autoCalculateOffset, bool autoCalculateStride)
 {
+    LOG << element.attribLocation << ", " << element.name;
     if(autoCalculateLocation) element.attribLocation = m_elements.size();
     if(autoCalculateOffset) element.offset = calculateStride();
 
@@ -24,6 +27,7 @@ void ShaderProgramLayout::push(ShaderProgramLayoutElement &element, bool autoCal
 
 void ShaderProgramLayout::push(int attribLocation, GLenum type, GLint tupleSize, bool autoCalculateStride)
 {
+    LOG << attribLocation;
     int offset = calculateStride();
     m_elements.push_back({attribLocation, nullptr, offset, type, tupleSize});
     if (autoCalculateStride) m_stride = offset + tupleSize * ShaderProgramLayoutElement::GetSizeOfType(type);
@@ -31,6 +35,7 @@ void ShaderProgramLayout::push(int attribLocation, GLenum type, GLint tupleSize,
 
 void ShaderProgramLayout::push(const char *name, GLenum type, GLint tupleSize, bool autoCalculateStride)
 {
+    LOG << name;
     int offset = calculateStride();
     m_elements.push_back({-1, name, offset, type, tupleSize});
     if (autoCalculateStride) m_stride = offset + tupleSize * ShaderProgramLayoutElement::GetSizeOfType(type);
@@ -38,6 +43,7 @@ void ShaderProgramLayout::push(const char *name, GLenum type, GLint tupleSize, b
 
 void ShaderProgramLayout::push(GLenum type, GLint tupleSize, bool autoCalculateStride)
 {
+    LOG << type << ", " << tupleSize;
     int offset = calculateStride();
     m_elements.push_back({static_cast<int>(m_elements.size()), nullptr, offset, type, tupleSize});
     if (autoCalculateStride) m_stride = offset + tupleSize * ShaderProgramLayoutElement::GetSizeOfType(type);

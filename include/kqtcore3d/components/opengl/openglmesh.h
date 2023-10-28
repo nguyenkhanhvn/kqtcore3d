@@ -6,7 +6,7 @@
 #include <QOpenGLBuffer>
 
 #include "kqtcore3d/interfaces/ivertices.h"
-#include "kqtcore3d/renderers/mesh.h"
+#include "kqtcore3d/components/mesh.h"
 
 namespace kqtcore3d
 {
@@ -27,7 +27,7 @@ public:
     virtual void drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callBack = nullptr);
     virtual void drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callBack = nullptr);
     /**** Carefull with this option ****/
-    virtual void drawByFunction(void (*drawFunction)(), QSharedPointer<IRenderCallbacks> callBack = nullptr);
+    virtual void drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callBack = nullptr);
 
 private:
     QSharedPointer<QOpenGLVertexArrayObject> m_vao;

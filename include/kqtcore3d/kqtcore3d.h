@@ -5,7 +5,7 @@
 #include "common.h"
 #include "core/core.h"
 #include "interfaces/interfaces.h"
-#include "renderers/renderers.h"
+#include "components/components.h"
 
 namespace kqtcore3d {
 

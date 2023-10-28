@@ -1,4 +1,4 @@
-#include "opengl/indices.h"
+#include "indices.h"
 
 #include <QOpenGLFunctions>
 

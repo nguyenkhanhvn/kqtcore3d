@@ -1,5 +1,7 @@
 #include "opengl/openglmesh.h"
 
+#include "common.h"
+
 namespace kqtcore3d
 {
 
@@ -9,6 +11,7 @@ OpenGLMesh::OpenGLMesh(const QSharedPointer<IVertices> &vertices, const QSharedP
 
 bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG;
     if(m_vao.isNull()) m_vao = QSharedPointer<QOpenGLVertexArrayObject>::create();
     if(!m_vao.isNull() && !m_vao->isCreated()) m_vao->create();
 
@@ -72,11 +75,14 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
 
 void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG;
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
 
     glDrawElements(GL_TRIANGLES, m_indices->getSize(), m_indices->getType(), 0);
+
+    if(!callBack.isNull()) callBack->afterRenderCallBack();
 
     m_vao->release();
 }
@@ -91,39 +97,50 @@ void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbac
 
         glDrawElements(GL_TRIANGLES, 3, m_indices->getType(), (void *)(3 * primitiveId * sizeof(uint)));
 
+        if(!callBack.isNull()) callBack->afterRenderCallBack();
+
         m_vao->release();
     }
 }
 
 void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG << "mode: " << mode << ", count: " << count;
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
 
     glDrawElements(mode, count, m_indices->getType(), indices);
 
+    if(!callBack.isNull()) callBack->afterRenderCallBack();
+
     m_vao->release();
 }
 
 void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG << "mode: " << mode << ", first: " << first << ", count: " << count;
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
 
     glDrawArrays(mode, first, count);
 
+    if(!callBack.isNull()) callBack->afterRenderCallBack();
+
     m_vao->release();
 }
 
-void OpenGLMesh::drawByFunction(void (*drawFunction)(), QSharedPointer<IRenderCallbacks> callBack)
+void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG;
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
 
     drawFunction();
+
+    if(!callBack.isNull()) callBack->afterRenderCallBack();
 
     m_vao->release();
 }

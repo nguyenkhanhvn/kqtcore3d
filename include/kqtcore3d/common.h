@@ -2,6 +2,7 @@
 #define COMMON_H
 
 
+#include <QDebug>
 #include <QVector3D>
 #include <QVector4D>
 #include <QMatrix4x4>
@@ -10,7 +11,7 @@
 namespace kqtcore3d
 {
 
-#define LOG qDebug() << "[kqtcore3d]" << << "[" << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "] "
+#define LOG qDebug() << "[kqtcore3d]" << "[" << __FILE__ << ":" << __FUNCTION__ << ":" << __LINE__ << "] "
 
 enum RendererApi
 {

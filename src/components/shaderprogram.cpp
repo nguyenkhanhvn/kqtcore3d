@@ -8,6 +8,7 @@ namespace kqtcore3d
 
 QSharedPointer<ShaderProgram> ShaderProgram::create(const QString& vertexShaderSource, const QString& fragmentShaderSource, const ShaderProgramLayout& layout)
 {
+    LOG << getRendererApi();
     switch(getRendererApi())
     {
     case OpenGL:

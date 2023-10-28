@@ -6,6 +6,7 @@ static RendererApi s_graphic = RendererApi::Unknown;
 
 bool kqtcore3dInit(RendererApi platform)
 {
+    LOG << platform;
     switch (platform)
     {
     case RendererApi::OpenGL:

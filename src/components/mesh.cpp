@@ -8,6 +8,7 @@ namespace kqtcore3d
 
 QSharedPointer<Mesh> Mesh::create(const QSharedPointer<IVertices> &vertices, const QSharedPointer<IIndices> &indices, QMatrix4x4 meshMatrix)
 {
+    LOG << getRendererApi();
     switch(getRendererApi())
     {
     case OpenGL:

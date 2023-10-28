@@ -27,21 +27,22 @@ qt_add_library(kqtcore3d STATIC
     include/kqtcore3d/interfaces/irendercallback.h
     include/kqtcore3d/interfaces/ivertices.h
     include/kqtcore3d/interfaces/iindices.h
-    include/kqtcore3d/renderers/renderers.h
-    include/kqtcore3d/renderers/orthocamera.h src/renderers/orthocamera.cpp
-    include/kqtcore3d/renderers/perspectivecamera.h src/renderers/perspectivecamera.cpp
-    include/kqtcore3d/renderers/mesh.h src/renderers/mesh.cpp
-    include/kqtcore3d/renderers/model.h src/renderers/model.cpp
-    include/kqtcore3d/renderers/shaderprogram.h src/renderers/shaderprogram.cpp
-    include/kqtcore3d/renderers/opengl/indices.h src/renderers/opengl/indices.cpp
-    include/kqtcore3d/renderers/opengl/openglmesh.h src/renderers/opengl/openglmodel.cpp
-    include/kqtcore3d/renderers/opengl/openglmodel.h src/renderers/opengl/openglmodel.cpp
-    include/kqtcore3d/renderers/opengl/openglshaderprogram.h src/renderers/opengl/openglshaderprogram.cpp
+    include/kqtcore3d/components/components.h
+    include/kqtcore3d/components/orthocamera.h src/components/orthocamera.cpp
+    include/kqtcore3d/components/perspectivecamera.h src/components/perspectivecamera.cpp
+    include/kqtcore3d/components/mesh.h src/components/mesh.cpp
+    include/kqtcore3d/components/model.h src/components/model.cpp
+    include/kqtcore3d/components/shaderprogram.h src/components/shaderprogram.cpp
+    include/kqtcore3d/components/indices.h src/components/indices.cpp
+    include/kqtcore3d/components/vertices.h src/components/vertices.cpp
+    include/kqtcore3d/components/opengl/openglmesh.h src/components/opengl/openglmodel.cpp
+    include/kqtcore3d/components/opengl/openglmodel.h src/components/opengl/openglmodel.cpp
+    include/kqtcore3d/components/opengl/openglshaderprogram.h src/components/opengl/openglshaderprogram.cpp
 )
 
 include_directories(include)
 
-target_include_directories(kqtcore3d PRIVATE include/kqtcore3d include/kqtcore3d/core include/kqtcore3d/interfaces include/kqtcore3d/renderers)
+target_include_directories(kqtcore3d PRIVATE include/kqtcore3d include/kqtcore3d/core include/kqtcore3d/interfaces include/kqtcore3d/components)
 
 target_link_libraries(kqtcore3d
     PRIVATE

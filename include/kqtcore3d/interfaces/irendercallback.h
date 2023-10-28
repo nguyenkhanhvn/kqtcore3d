@@ -11,6 +11,8 @@ public:
     virtual void initCallBack() {}
 
     virtual void beforeRenderCallBack() {}
+
+    virtual void afterRenderCallBack() {}
 };
 
 }

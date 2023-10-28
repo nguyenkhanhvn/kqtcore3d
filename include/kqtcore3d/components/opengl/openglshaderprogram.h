@@ -4,7 +4,7 @@
 
 #include <QOpenGLShaderProgram>
 
-#include "kqtcore3d/renderers/shaderprogram.h"
+#include "kqtcore3d/components/shaderprogram.h"
 
 namespace kqtcore3d {
 

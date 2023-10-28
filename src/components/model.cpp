@@ -8,6 +8,7 @@ namespace kqtcore3d
 
 QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh> > &meshes, QSharedPointer<IModelImporter> importer)
 {
+    LOG << getRendererApi();
     switch(getRendererApi())
     {
     case OpenGL:
@@ -21,11 +22,13 @@ QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh> > &me
 
 void Model::render(QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG;
     ALL_MESHES_DO_FUNCTION(render, callBack)
 }
 
 void Model::renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRenderCallbacks> callBack)
 {
+    LOG << "messId: " << meshId << "primitiveId: " << primitiveId;
     if (meshId < m_meshes.size())
     {
         QSharedPointer<Mesh> mesh = qSharedPointerCast<Mesh, BaseMesh>(m_meshes.at(meshId));

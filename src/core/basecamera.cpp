@@ -1,5 +1,7 @@
 #include "basecamera.h"
 
+#include "common.h"
+
 namespace kqtcore3d
 {
 
@@ -11,6 +13,7 @@ BaseCamera::BaseCamera(QVector3D position, QVector3D orientation, QVector3D up, 
 
 void BaseCamera::cameraControl(CameraControl cameraControl, float delta)
 {
+    LOG << cameraControl << ": " << delta;
     switch(cameraControl)
     {
     case Move_Forward:

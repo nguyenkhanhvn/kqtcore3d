@@ -2,7 +2,7 @@
 #define OPENGLMODEL_H
 
 
-#include "kqtcore3d/renderers/model.h"
+#include "kqtcore3d/components/model.h"
 
 namespace kqtcore3d
 {
