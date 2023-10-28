@@ -6,6 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message("debug mode")
+elseif (CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+    message("release mode")
+    add_definitions(-DQT_NO_DEBUG_OUTPUT)
+endif()
+
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick OpenGL)
 
 file(GLOB_RECURSE  HEADER_FILES "include/*.h")
