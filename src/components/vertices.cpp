@@ -2,9 +2,8 @@
 
 namespace kqtcore3d {
 
-Vertices::Vertices(const QVector<Vertex> &vertices)
+Vertices::Vertices(const QVector<Vertex> &vertices) : m_vertices(vertices)
 {
-
 }
 
 const void *Vertices::getData()

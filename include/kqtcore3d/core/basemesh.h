@@ -24,10 +24,20 @@ public:
     {
         return m_vertices;
     }
+    virtual void swapVertices(QSharedPointer<IVertices> newVertices)
+    {
+        m_vertices.swap(newVertices);
+    }
+
     virtual QSharedPointer<IIndices> indices() const
     {
         return m_indices;
     }
+    virtual void swapIndices(QSharedPointer<IIndices> newIndices)
+    {
+        m_indices.swap(newIndices);
+    }
+
     virtual QMatrix4x4 getMeshMatrix() const
     {
         return m_meshMatrix;

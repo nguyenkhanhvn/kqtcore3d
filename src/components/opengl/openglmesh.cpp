@@ -18,7 +18,7 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
     if(!m_vao.isNull() && m_vao->isCreated())
     {
         m_vao->bind();
-        if(m_vertices->getSize() > 0)
+        if(!m_vertices.isNull() && m_vertices->getSize() > 0)
         {
             if(m_vbo.isNull()) m_vbo = QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::VertexBuffer);
             if(!m_vbo.isNull())
@@ -37,7 +37,7 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
             }
         }
 
-        if(m_indices->getSize() > 0)
+        if(!m_indices.isNull() && m_indices->getSize() > 0)
         {
             if(m_ebo.isNull()) m_ebo = QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::IndexBuffer);
             if(!m_ebo.isNull())
@@ -78,6 +78,8 @@ void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callBack)
 #ifdef RENDER_LOG
     LOG;
 #endif
+    if(m_indices.isNull()) return;
+
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
@@ -94,6 +96,8 @@ void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbac
 #ifdef RENDER_LOG
     LOG << primitiveId;
 #endif
+    if(m_indices.isNull()) return;
+
     if ((primitiveId * 3) < m_indices->getSize())
     {
         m_vao->bind();
@@ -113,6 +117,8 @@ void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices,
 #ifdef RENDER_LOG
     LOG << "mode: " << mode << ", count: " << count;
 #endif
+    if(m_indices.isNull()) return;
+
     m_vao->bind();
 
     if(!callBack.isNull()) callBack->beforeRenderCallBack();
