@@ -25,6 +25,7 @@ public:
     virtual void swapIndices(QSharedPointer<IIndices> newIndices);
 
     virtual QMatrix4x4 getMeshMatrix() const;
+    virtual void setMeshMatrix(QMatrix4x4 newMeshMatrix);
 
     void translate(const QVector3D &vector);
     void translate(float x, float y);

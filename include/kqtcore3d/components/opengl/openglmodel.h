@@ -12,7 +12,7 @@ class OpenGLModel : public Model
 public:
     OpenGLModel(const QVector<QSharedPointer<BaseMesh>>& meshes = QVector<QSharedPointer<BaseMesh>>(), QSharedPointer<IModelImporter> importer = nullptr);
 
-    virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
+    virtual bool init(QSharedPointer<IRenderCallbacks> callback = nullptr) override;
 };
 
 }

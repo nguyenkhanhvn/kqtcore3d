@@ -4,7 +4,7 @@ namespace kqtcore3d
 {
 
 BaseModel::BaseModel(const QVector<QSharedPointer<BaseMesh> > &meshes, QSharedPointer<IModelImporter> importer) :
-    m_importer(importer)
+    m_meshes(meshes), m_importer(importer)
 {}
 
 BaseModel::~BaseModel() {}

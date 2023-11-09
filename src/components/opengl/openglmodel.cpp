@@ -9,13 +9,13 @@ OpenGLModel::OpenGLModel(const QVector<QSharedPointer<BaseMesh>> &meshes, QShare
     Model(meshes, importer)
 {}
 
-bool OpenGLModel::init(QSharedPointer<IRenderCallbacks> callBack)
+bool OpenGLModel::init(QSharedPointer<IRenderCallbacks> callback)
 {
     LOG;
     bool result = true;
     for (const QSharedPointer<BaseMesh>& mesh : m_meshes)
         {
-            result &= mesh->init(callBack);
+            result &= mesh->init(callback);
         }
     return result;
 }

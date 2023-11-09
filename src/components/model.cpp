@@ -20,15 +20,15 @@ QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh> > &me
     return nullptr;
 }
 
-void Model::render(QSharedPointer<IRenderCallbacks> callBack)
+void Model::render(QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG;
 #endif
-    ALL_MESHES_DO_FUNCTION(render, callBack)
+    ALL_MESHES_DO_FUNCTION(render, callback)
 }
 
-void Model::renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRenderCallbacks> callBack)
+void Model::renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG << "messId: " << meshId << "primitiveId: " << primitiveId;
@@ -36,7 +36,7 @@ void Model::renderPrimitive(uint meshId, uint primitiveId, QSharedPointer<IRende
     if (meshId < m_meshes.size())
     {
         QSharedPointer<Mesh> mesh = qSharedPointerCast<Mesh, BaseMesh>(m_meshes.at(meshId));
-        if (!mesh.isNull()) mesh->renderPrimitive(primitiveId, callBack);
+        if (!mesh.isNull()) mesh->renderPrimitive(primitiveId, callback);
     }
 }
 

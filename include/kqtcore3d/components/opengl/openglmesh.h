@@ -17,17 +17,17 @@ public:
     OpenGLMesh(const QSharedPointer<IVertices>& vertices = nullptr, const QSharedPointer<IIndices>& indices = nullptr, QMatrix4x4 meshMatrix = QMatrix4x4());
 
     // IDrawable interface
-    virtual bool init(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
-    virtual void render(QSharedPointer<IRenderCallbacks> callBack = nullptr) override;
+    virtual bool init(QSharedPointer<IRenderCallbacks> callback = nullptr) override;
+    virtual void render(QSharedPointer<IRenderCallbacks> callback = nullptr) override;
 
     // Mesh interface
-    virtual void renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callBack) override;
+    virtual void renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callback) override;
 
     // OpenGL custom draw
-    virtual void drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callBack = nullptr);
-    virtual void drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callBack = nullptr);
+    virtual void drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callback = nullptr);
+    virtual void drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callback = nullptr);
     /**** Carefull with this option ****/
-    virtual void drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callBack = nullptr);
+    virtual void drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callback = nullptr);
 
 private:
     QSharedPointer<QOpenGLVertexArrayObject> m_vao;

@@ -34,6 +34,12 @@ QMatrix4x4 BaseMesh::getMeshMatrix() const
     return m_meshMatrix;
 }
 
+void BaseMesh::setMeshMatrix(QMatrix4x4 newMeshMatrix)
+{
+    if(m_meshMatrix == newMeshMatrix) return;
+    m_meshMatrix = newMeshMatrix;
+}
+
 void BaseMesh::translate(const QVector3D &vector)
 {
     m_meshMatrix.translate(vector);

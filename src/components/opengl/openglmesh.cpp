@@ -9,7 +9,7 @@ OpenGLMesh::OpenGLMesh(const QSharedPointer<IVertices> &vertices, const QSharedP
     Mesh(vertices, indices, meshMatrix)
 {}
 
-bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
+bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callback)
 {
     LOG;
     if(m_vao.isNull()) m_vao = QSharedPointer<QOpenGLVertexArrayObject>::create();
@@ -56,9 +56,9 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
             }
         }
 
-        if (!callBack.isNull())
+        if (!callback.isNull())
         {
-            callBack->initCallBack();
+            callback->initCallBack();
         }
 
         return true;
@@ -73,7 +73,7 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callBack)
     return false;
 }
 
-void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callBack)
+void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG;
@@ -82,16 +82,16 @@ void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callBack)
 
     m_vao->bind();
 
-    if(!callBack.isNull()) callBack->beforeRenderCallBack();
+    if(!callback.isNull()) callback->beforeRenderCallBack();
 
     glDrawElements(GL_TRIANGLES, m_indices->getSize(), m_indices->getType(), 0);
 
-    if(!callBack.isNull()) callBack->afterRenderCallBack();
+    if(!callback.isNull()) callback->afterRenderCallBack();
 
     m_vao->release();
 }
 
-void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callBack)
+void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG << primitiveId;
@@ -102,17 +102,17 @@ void OpenGLMesh::renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbac
     {
         m_vao->bind();
 
-        if(!callBack.isNull()) callBack->beforeRenderCallBack();
+        if(!callback.isNull()) callback->beforeRenderCallBack();
 
         glDrawElements(GL_TRIANGLES, 3, m_indices->getType(), (void *)(3 * primitiveId * sizeof(uint)));
 
-        if(!callBack.isNull()) callBack->afterRenderCallBack();
+        if(!callback.isNull()) callback->afterRenderCallBack();
 
         m_vao->release();
     }
 }
 
-void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callBack)
+void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG << "mode: " << mode << ", count: " << count;
@@ -121,43 +121,43 @@ void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices,
 
     m_vao->bind();
 
-    if(!callBack.isNull()) callBack->beforeRenderCallBack();
+    if(!callback.isNull()) callback->beforeRenderCallBack();
 
     glDrawElements(mode, count, m_indices->getType(), indices);
 
-    if(!callBack.isNull()) callBack->afterRenderCallBack();
+    if(!callback.isNull()) callback->afterRenderCallBack();
 
     m_vao->release();
 }
 
-void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callBack)
+void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG << "mode: " << mode << ", first: " << first << ", count: " << count;
 #endif
     m_vao->bind();
 
-    if(!callBack.isNull()) callBack->beforeRenderCallBack();
+    if(!callback.isNull()) callback->beforeRenderCallBack();
 
     glDrawArrays(mode, first, count);
 
-    if(!callBack.isNull()) callBack->afterRenderCallBack();
+    if(!callback.isNull()) callback->afterRenderCallBack();
 
     m_vao->release();
 }
 
-void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callBack)
+void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callback)
 {
 #ifdef RENDER_LOG
     LOG;
 #endif
     m_vao->bind();
 
-    if(!callBack.isNull()) callBack->beforeRenderCallBack();
+    if(!callback.isNull()) callback->beforeRenderCallBack();
 
     drawFunction();
 
-    if(!callBack.isNull()) callBack->afterRenderCallBack();
+    if(!callback.isNull()) callback->afterRenderCallBack();
 
     m_vao->release();
 }
