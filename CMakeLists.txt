@@ -25,8 +25,8 @@ qt_add_library(kqtcore3d STATIC
     include/kqtcore3d/common.h
     include/kqtcore3d/core/core.h
     include/kqtcore3d/core/basecamera.h src/core/basecamera.cpp
-    include/kqtcore3d/core/basemesh.h
-    include/kqtcore3d/core/basemodel.h
+    include/kqtcore3d/core/basemesh.h src/core/basemesh.cpp
+    include/kqtcore3d/core/basemodel.h src/core/basemodel.cpp
     include/kqtcore3d/core/baseshaderprogram.h src/core/baseshaderprogram.cpp
     include/kqtcore3d/core/shaderprogramlayout.h src/core/shaderprogramlayout.cpp
     include/kqtcore3d/interfaces/interfaces.h

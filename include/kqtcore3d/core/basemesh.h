@@ -14,49 +14,29 @@ namespace kqtcore3d
 class BaseMesh : public IRenderable
 {
 public:
-    BaseMesh(const QSharedPointer<IVertices>& vertices, const QSharedPointer<IIndices>& indices, QMatrix4x4 meshMatrix) :
-        m_vertices(vertices), m_indices(indices), m_meshMatrix(meshMatrix)
-    {}
+    BaseMesh(const QSharedPointer<IVertices>& vertices, const QSharedPointer<IIndices>& indices, QMatrix4x4 meshMatrix);
 
-    virtual ~BaseMesh() {}
+    virtual ~BaseMesh();
 
-    virtual QSharedPointer<IVertices> vertices() const
-    {
-        return m_vertices;
-    }
-    virtual void swapVertices(QSharedPointer<IVertices> newVertices)
-    {
-        m_vertices.swap(newVertices);
-    }
+    virtual QSharedPointer<IVertices> vertices() const;
+    virtual void swapVertices(QSharedPointer<IVertices> newVertices);
 
-    virtual QSharedPointer<IIndices> indices() const
-    {
-        return m_indices;
-    }
-    virtual void swapIndices(QSharedPointer<IIndices> newIndices)
-    {
-        m_indices.swap(newIndices);
-    }
+    virtual QSharedPointer<IIndices> indices() const;
+    virtual void swapIndices(QSharedPointer<IIndices> newIndices);
 
-    virtual QMatrix4x4 getMeshMatrix() const
-    {
-        return m_meshMatrix;
-    }
+    virtual QMatrix4x4 getMeshMatrix() const;
 
-    void translate(const QVector3D &vector)
-    {
-        m_meshMatrix.translate(vector);
-    }
-    void rotate(float angle, const QVector3D &rotateAxis)
-    {
-        m_meshMatrix.rotate(angle, rotateAxis);
-    }
-    void rotateGlobal(float angle, const QVector3D &rotateAxis)
-    {
-        QMatrix4x4 globalRotation;
-        globalRotation.rotate(angle, rotateAxis);
-        m_meshMatrix = globalRotation * m_meshMatrix;
-    }
+    void translate(const QVector3D &vector);
+    void translate(float x, float y);
+    void translate(float x, float y, float z);
+    void rotate(float angle, const QVector3D &rotateAxis);
+    void rotate(float angle, float x, float y, float z = 0);
+    void rotate(const QQuaternion &quaternion);
+    void rotateGlobal(float angle, const QVector3D &rotateAxis);
+    void scale(const QVector3D &vector);
+    void scale(float x, float y);
+    void scale(float x, float y, float z);
+    void scale(float factor);
 
 
 protected:
