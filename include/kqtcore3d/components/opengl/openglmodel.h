@@ -10,7 +10,7 @@ namespace kqtcore3d
 class OpenGLModel : public Model
 {
 public:
-    OpenGLModel(const QVector<QSharedPointer<BaseMesh>>& meshes = QVector<QSharedPointer<BaseMesh>>(), QSharedPointer<IModelImporter> importer = nullptr);
+    OpenGLModel(const QVector<QSharedPointer<BaseMesh>>& meshes = {}, QSharedPointer<IModelImporter> importer = nullptr);
 
     virtual bool init(QSharedPointer<IRenderCallbacks> callback = nullptr) override;
 };

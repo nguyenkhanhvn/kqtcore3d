@@ -44,7 +44,7 @@ public:
 
 
 protected:
-    QSharedPointer<IModelImporter> m_importer;
+    QSharedPointer<IModelImporter> m_importer = nullptr;
     QVector<QSharedPointer<BaseMesh>> m_meshes;
 
 };

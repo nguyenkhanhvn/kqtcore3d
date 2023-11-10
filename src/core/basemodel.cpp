@@ -11,7 +11,7 @@ BaseModel::~BaseModel() {}
 
 bool BaseModel::loadModel(const QString &filename)
 {
-    if(m_importer)
+    if(!m_importer.isNull())
     {
         ModelImporterData loadedData = m_importer->loadModel(filename);
         if(loadedData.isLoaded)
@@ -25,7 +25,7 @@ bool BaseModel::loadModel(const QString &filename)
 
 bool BaseModel::loadModelFromMemory(const QByteArray &data)
 {
-    if(m_importer)
+    if(!m_importer.isNull())
     {
         ModelImporterData loadedData = m_importer->loadModelFromMemory(data);
         if(loadedData.isLoaded)

@@ -19,10 +19,10 @@ public:
     virtual ~BaseMesh();
 
     virtual QSharedPointer<IVertices> vertices() const;
-    virtual void swapVertices(QSharedPointer<IVertices> newVertices);
+    virtual void setVertices(const QSharedPointer<IVertices> &newVertices);
 
     virtual QSharedPointer<IIndices> indices() const;
-    virtual void swapIndices(QSharedPointer<IIndices> newIndices);
+    virtual void setIndices(const QSharedPointer<IIndices> &newIndices);
 
     virtual QMatrix4x4 getMeshMatrix() const;
     virtual void setMeshMatrix(QMatrix4x4 newMeshMatrix);
@@ -41,8 +41,8 @@ public:
 
 
 protected:
-    QSharedPointer<IVertices> m_vertices;
-    QSharedPointer<IIndices> m_indices;
+    QSharedPointer<IVertices> m_vertices = nullptr;
+    QSharedPointer<IIndices> m_indices = nullptr;
 
     QMatrix4x4 m_meshMatrix;
 };

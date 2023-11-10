@@ -14,9 +14,9 @@ QSharedPointer<IVertices> BaseMesh::vertices() const
     return m_vertices;
 }
 
-void BaseMesh::swapVertices(QSharedPointer<IVertices> newVertices)
+void BaseMesh::setVertices(const QSharedPointer<IVertices> &newVertices)
 {
-    m_vertices.swap(newVertices);
+    m_vertices = newVertices;
 }
 
 QSharedPointer<IIndices> BaseMesh::indices() const
@@ -24,9 +24,9 @@ QSharedPointer<IIndices> BaseMesh::indices() const
     return m_indices;
 }
 
-void BaseMesh::swapIndices(QSharedPointer<IIndices> newIndices)
+void BaseMesh::setIndices(const QSharedPointer<IIndices> &newIndices)
 {
-    m_indices.swap(newIndices);
+    m_indices = newIndices;
 }
 
 QMatrix4x4 BaseMesh::getMeshMatrix() const

@@ -20,19 +20,21 @@ public:
     virtual bool init(QSharedPointer<IRenderCallbacks> callback = nullptr) override;
     virtual void render(QSharedPointer<IRenderCallbacks> callback = nullptr) override;
 
-    // Mesh interface
-    virtual void renderPrimitive(uint primitiveId, QSharedPointer<IRenderCallbacks> callback) override;
+    // BaseMesh interface
+    virtual void setVertices(const QSharedPointer<IVertices> &newVertices) override;
+    virtual void setIndices(const QSharedPointer<IIndices> &newIndices) override;
 
     // OpenGL custom draw
-    virtual void drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callback = nullptr);
+    virtual void drawElements(GLenum mode, GLsizei count, const GLvoid *indices = 0, QSharedPointer<IRenderCallbacks> callback = nullptr);
     virtual void drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callback = nullptr);
+
     /**** Carefull with this option ****/
     virtual void drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callback = nullptr);
 
 private:
-    QSharedPointer<QOpenGLVertexArrayObject> m_vao;
-    QSharedPointer<QOpenGLBuffer> m_vbo;
-    QSharedPointer<QOpenGLBuffer> m_ebo;
+    const QSharedPointer<QOpenGLVertexArrayObject> m_vao;
+    const QSharedPointer<QOpenGLBuffer> m_vbo;
+    const QSharedPointer<QOpenGLBuffer> m_ebo;
 
 };
 
