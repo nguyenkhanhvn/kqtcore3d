@@ -20,14 +20,14 @@ public:
     virtual QMatrix4x4 getCameraProjection() const;
     virtual QMatrix4x4 getCameraMatrix() const;
 
-    void setPosition();
-    QVector3D getPosition() const;
+    virtual void setPosition(const QVector3D &position);
+    virtual QVector3D getPosition() const;
 
-    void setOrientation();
-    QVector3D getOrientation() const;
+    virtual void setOrientation(const QVector3D &orientation);
+    virtual QVector3D getOrientation() const;
 
-    void setUp();
-    QVector3D getUp() const;
+    virtual void setUp(const QVector3D &up);
+    virtual QVector3D getUp() const;
 
 
 protected:

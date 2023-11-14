@@ -66,6 +66,39 @@ QMatrix4x4 BaseCamera::getCameraMatrix() const
     return m_cameraMatrix;
 }
 
+void BaseCamera::setPosition(const QVector3D &position)
+{
+    if(m_position == position) return;
+    m_position = position;
+}
+
+QVector3D BaseCamera::getPosition() const
+{
+    return m_position;
+}
+
+void BaseCamera::setOrientation(const QVector3D &orientation)
+{
+    if(m_orientation == orientation) return;
+    m_orientation = orientation;
+}
+
+QVector3D BaseCamera::getOrientation() const
+{
+    return m_orientation;
+}
+
+void BaseCamera::setUp(const QVector3D &up)
+{
+    if(m_up == up) return;
+    m_up = up;
+}
+
+QVector3D BaseCamera::getUp() const
+{
+    return m_up;
+}
+
 void BaseCamera::calculateCameraMatrix()
 {
     QMatrix4x4 view;

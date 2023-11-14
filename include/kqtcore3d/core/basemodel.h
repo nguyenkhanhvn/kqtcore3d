@@ -30,17 +30,17 @@ public:
     virtual void addMeshes(QVector<QSharedPointer<BaseMesh>> meshes);
     virtual void addMesh(QSharedPointer<BaseMesh> mesh);
 
-    void translate(const QVector3D &vector);
-    void translate(float x, float y);
-    void translate(float x, float y, float z);
-    void rotate(float angle, const QVector3D &rotateAxis);
-    void rotate(float angle, float x, float y, float z = 0);
-    void rotate(const QQuaternion &quaternion);
-    void rotateGlobal(float angle, const QVector3D &rotateAxis);
-    void scale(const QVector3D &vector);
-    void scale(float x, float y);
-    void scale(float x, float y, float z);
-    void scale(float factor);
+    virtual void translate(const QVector3D &vector);
+    virtual void translate(float x, float y);
+    virtual void translate(float x, float y, float z);
+    virtual void rotate(float angle, const QVector3D &rotateAxis);
+    virtual void rotate(float angle, float x, float y, float z = 0);
+    virtual void rotate(const QQuaternion &quaternion);
+    virtual void rotateGlobal(float angle, const QVector3D &rotateAxis);
+    virtual void scale(const QVector3D &vector);
+    virtual void scale(float x, float y);
+    virtual void scale(float x, float y, float z);
+    virtual void scale(float factor);
 
 
 protected:

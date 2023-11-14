@@ -15,24 +15,24 @@ struct ShaderProgramLayoutElement
     GLenum type;
     GLint tupleSize;
 
-    // for now, support only GL_FLOAT, GL_UNSIGNED_INT, GL_UNSIGNED_BYTE
+    // for now, support only GL_FLOAT, GL_UNSIGNED_INT, GL_UNSIGNED_BYTE, other -> size 0;
     static unsigned int GetSizeOfType(GLenum type);
 };
 
 class ShaderProgramLayout
 {
 public:
-    void push(ShaderProgramLayoutElement &element, bool autoCalculateLocation = true, bool autoCalculateOffset = true, bool autoCalculateStride = true);
-    void push(int attribLocation, GLenum type, GLint tupleSize, bool autoCalculateStride = true);
-    void push(const char* name, GLenum type, GLint tupleSize, bool autoCalculateStride = true);
-    void push(GLenum type, GLint tupleSize, bool autoCalculateStride = true);
+    virtual void push(ShaderProgramLayoutElement &element, bool autoCalculateLocation = true, bool autoCalculateOffset = true, bool autoCalculateStride = true);
+    virtual void push(int attribLocation, GLenum type, GLint tupleSize, bool autoCalculateStride = true);
+    virtual void push(const char* name, GLenum type, GLint tupleSize, bool autoCalculateStride = true);
+    virtual void push(GLenum type, GLint tupleSize, bool autoCalculateStride = true);
 
-    QVector<ShaderProgramLayoutElement> getElements() const;
+    virtual QVector<ShaderProgramLayoutElement> getElements() const;
 
-    int getStride() const;
-    void setStride(int stride);
+    virtual int getStride() const;
+    virtual void setStride(int stride);
 
-    int calculateStride();
+    virtual int calculateStride();
 
 private:
     QVector<ShaderProgramLayoutElement> m_elements;
