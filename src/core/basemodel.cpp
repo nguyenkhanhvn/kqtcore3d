@@ -100,9 +100,9 @@ void BaseModel::rotate(const QQuaternion &quaternion)
     ALL_MESHES_DO_FUNCTION(rotate, quaternion);
 }
 
-void BaseModel::rotateGlobal(float angle, const QVector3D &rotateAxis)
+void BaseModel::rotateGlobal(float angle, const QVector3D &rotateAxis, const QVector3D &rotatePoint)
 {
-    ALL_MESHES_DO_FUNCTION(rotateGlobal, angle, rotateAxis);
+    ALL_MESHES_DO_FUNCTION(rotateGlobal, angle, rotateAxis, rotatePoint);
 }
 
 void BaseModel::scale(const QVector3D &vector)

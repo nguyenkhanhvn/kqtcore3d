@@ -3,7 +3,6 @@
 
 !core/
 *.*#
-*.a
 *.app
 *.autosave
 *.core

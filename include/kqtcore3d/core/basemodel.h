@@ -36,7 +36,7 @@ public:
     virtual void rotate(float angle, const QVector3D &rotateAxis);
     virtual void rotate(float angle, float x, float y, float z = 0);
     virtual void rotate(const QQuaternion &quaternion);
-    virtual void rotateGlobal(float angle, const QVector3D &rotateAxis);
+    virtual void rotateGlobal(float angle, const QVector3D &rotateAxis, const QVector3D &rotatePoint = {0,0,0});
     virtual void scale(const QVector3D &vector);
     virtual void scale(float x, float y);
     virtual void scale(float x, float y, float z);

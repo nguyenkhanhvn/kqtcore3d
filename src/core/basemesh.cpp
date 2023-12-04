@@ -70,11 +70,15 @@ void BaseMesh::rotate(const QQuaternion &quaternion)
     m_meshMatrix.rotate(quaternion);
 }
 
-void BaseMesh::rotateGlobal(float angle, const QVector3D &rotateAxis)
+void BaseMesh::rotateGlobal(float angle, const QVector3D &rotateAxis, const QVector3D &rotatePoint)
 {
+    QMatrix4x4 beforeRotation;
+    beforeRotation.translate(-rotatePoint);
     QMatrix4x4 globalRotation;
     globalRotation.rotate(angle, rotateAxis);
-    m_meshMatrix = globalRotation * m_meshMatrix;
+    QMatrix4x4 afterRotation;
+    afterRotation.translate(rotatePoint);
+    m_meshMatrix = beforeRotation * globalRotation * afterRotation * m_meshMatrix;
 }
 
 void BaseMesh::scale(const QVector3D &vector)
