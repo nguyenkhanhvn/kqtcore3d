@@ -20,6 +20,12 @@ public:
     BaseModel(const QVector<QSharedPointer<BaseMesh>>& meshes, QSharedPointer<IModelImporter> importer);
     virtual ~BaseModel();
 
+
+    // IRenderable interface
+    virtual bool init(RenderCallback callback = {}) override;
+    virtual void render(RenderCallback callback = {}) override;
+
+
     virtual bool loadModel(const QString &filename);
     virtual bool loadModelFromMemory(const QByteArray &data);
 
@@ -30,17 +36,17 @@ public:
     virtual void addMeshes(QVector<QSharedPointer<BaseMesh>> meshes);
     virtual void addMesh(QSharedPointer<BaseMesh> mesh);
 
-    virtual void translate(const QVector3D &vector);
-    virtual void translate(float x, float y);
-    virtual void translate(float x, float y, float z);
-    virtual void rotate(float angle, const QVector3D &rotateAxis);
-    virtual void rotate(float angle, float x, float y, float z = 0);
-    virtual void rotate(const QQuaternion &quaternion);
-    virtual void rotateGlobal(float angle, const QVector3D &rotateAxis, const QVector3D &rotatePoint = {0,0,0});
-    virtual void scale(const QVector3D &vector);
-    virtual void scale(float x, float y);
-    virtual void scale(float x, float y, float z);
-    virtual void scale(float factor);
+    virtual void translate(const QVector3D &vector) override;
+    virtual void translate(float x, float y) override;
+    virtual void translate(float x, float y, float z) override;
+    virtual void rotate(float angle, float x, float y, float z = 0) override;
+    virtual void rotate(const QQuaternion &quaternion) override;
+    virtual void rotate(const QVector3D &rotateAxis, float angle) override;
+    virtual void rotateGlobal(const QVector3D &rotateAxis, float angle, const QVector3D &rotatePoint = {0,0,0}) override;
+    virtual void scale(const QVector3D &vector) override;
+    virtual void scale(float x, float y) override;
+    virtual void scale(float x, float y, float z) override;
+    virtual void scale(float factor) override;
 
 
 protected:

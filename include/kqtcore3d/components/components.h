@@ -8,5 +8,6 @@
 #include "shaderprogram.h"
 #include "indices.h"
 #include "vertices.h"
+#include "bufferlayout.h"
 
 #endif // COMPONENTS_H

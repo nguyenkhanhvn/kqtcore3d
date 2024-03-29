@@ -9,10 +9,10 @@ namespace kqtcore3d {
 class PerspectiveCamera : public BaseCamera
 {
 public:
-    PerspectiveCamera(QVector3D position, float verticalAngle, float aspectRatio, QVector3D orientation, QVector3D up,
+    PerspectiveCamera(QVector3D position, QVector3D orientation, QVector3D up, float verticalAngle, float aspectRatio,
                       float nearPlane, float farPlane, QMatrix4x4 projection);
 
-    virtual void setupPerspective(float verticalAngle, float aspectRatio, float nearPlane, float farPlane, QMatrix4x4 projection = QMatrix4x4());
+    virtual void setupPerspective(float verticalAngle, float aspectRatio, float nearPlane, float farPlane, QMatrix4x4 initProjection = QMatrix4x4());
 
 
 protected:

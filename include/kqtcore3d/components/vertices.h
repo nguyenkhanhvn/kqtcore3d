@@ -8,28 +8,33 @@
 
 namespace kqtcore3d {
 
-struct Vertex {
-    QVector3D position;
-    QVector3D normal;
-    QVector4D color = {0.0, 0.0, 0.0, 1.0};
-    QVector2D texUV;
-};
-
+template<typename T>
 class Vertices : public IVertices
 {
 public:
-    Vertices(const QVector<Vertex>& vertices = QVector<Vertex>());
+    Vertices(const QVector<T>& vertices = QVector<T>())  : m_vertices(vertices) {}
 
     // IVertices interface
-    const void *getData();
-    int getSize();
-    int getByteSize();
-    int getStride();
+    virtual const void *getData() override {
+        return m_vertices.constData();
+    }
+    virtual int getSize() override {
+        return m_vertices.size();
+    }
+    virtual int getByteSize() override {
+        return m_vertices.size() * sizeof(T);
+    }
+    virtual int getStride() override {
+        return sizeof(T);
+    }
 
-    void push(const Vertex& vertex);
 
-private:
-    QVector<Vertex> m_vertices;
+    void push(const T& vertex) {
+        m_vertices.push_back(vertex);
+    }
+
+protected:
+    QVector<T> m_vertices;
 
 };
 

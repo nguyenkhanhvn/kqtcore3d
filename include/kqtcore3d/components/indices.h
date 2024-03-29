@@ -8,24 +8,42 @@
 
 namespace kqtcore3d {
 
+template<typename T, int type>
 class Indices : public IIndices
 {
 public:
-    Indices(const QVector<uint>& indices = QVector<uint>());
+    Indices(const QVector<T>& indices = QVector<T>()) : m_indices(indices) {}
 
     // IIndices interface
-    virtual const void *getData() override;
-    virtual int getType() override;
-    virtual int getSize() override;
-    virtual int getByteSize() override;
+    virtual const void *getData() override {
+        return m_indices.constData();
+    }
+    virtual int getType() override {
+        return type;
+    }
+    virtual int getSize() override {
+        return m_indices.size();
+    }
+    virtual int getByteSize() override {
+        return m_indices.size() * sizeof(uint);
+    }
 
-    QVector<uint> getIndices() const;
-    void setIndices(const QVector<uint>& indices);
 
-    void push(uint index);
+    QVector<T> getIndices() const {
+        return m_indices;
+    }
+    void setIndices(const QVector<T>& indices) {
+        if (m_indices != indices) {
+            m_indices = indices;
+        }
+    }
 
-private:
-    QVector<uint> m_indices;
+    void push(T index) {
+        m_indices.push_back(index);
+    }
+
+protected:
+    QVector<T> m_indices;
 
 };
 

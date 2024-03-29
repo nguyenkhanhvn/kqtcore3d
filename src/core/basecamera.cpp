@@ -1,6 +1,6 @@
 #include "basecamera.h"
 
-#include "common.h"
+#include "kqtcore3dutils.h"
 
 namespace kqtcore3d
 {
@@ -70,6 +70,7 @@ void BaseCamera::setPosition(const QVector3D &position)
 {
     if(m_position == position) return;
     m_position = position;
+    calculateCameraMatrix();
 }
 
 QVector3D BaseCamera::getPosition() const
@@ -81,6 +82,7 @@ void BaseCamera::setOrientation(const QVector3D &orientation)
 {
     if(m_orientation == orientation) return;
     m_orientation = orientation;
+    calculateCameraMatrix();
 }
 
 QVector3D BaseCamera::getOrientation() const
@@ -92,6 +94,7 @@ void BaseCamera::setUp(const QVector3D &up)
 {
     if(m_up == up) return;
     m_up = up;
+    calculateCameraMatrix();
 }
 
 QVector3D BaseCamera::getUp() const
@@ -101,9 +104,8 @@ QVector3D BaseCamera::getUp() const
 
 void BaseCamera::calculateCameraMatrix()
 {
-    QMatrix4x4 view;
-    view.lookAt(m_position, m_position + m_orientation, m_up);
-    m_view = view;
+    m_view = QMatrix4x4();
+    m_view.lookAt(m_position, m_position + m_orientation, m_up);
 
     m_cameraMatrix = m_projection * m_view;
 }

@@ -4,7 +4,7 @@
 
 #include <QMatrix4x4>
 
-#include "kqtcore3d/common.h"
+#include "kqtcore3d/kqtcore3dutils.h"
 
 namespace kqtcore3d
 {

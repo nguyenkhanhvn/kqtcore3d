@@ -1,5 +1,5 @@
-#ifndef SHADERPROGRAMLAYOUT_H
-#define SHADERPROGRAMLAYOUT_H
+#ifndef BUFFERLAYOUT_H
+#define BUFFERLAYOUT_H
 
 
 #include <QOpenGLFunctions>
@@ -7,7 +7,7 @@
 namespace kqtcore3d
 {
 
-struct ShaderProgramLayoutElement
+struct BufferLayoutElement
 {
     int attribLocation = -1;
     const char* name;
@@ -19,15 +19,14 @@ struct ShaderProgramLayoutElement
     static unsigned int GetSizeOfType(GLenum type);
 };
 
-class ShaderProgramLayout
+class BufferLayout
 {
 public:
-    virtual void push(ShaderProgramLayoutElement &element, bool autoCalculateLocation = true, bool autoCalculateOffset = true, bool autoCalculateStride = true);
+    virtual void push(BufferLayoutElement &element, bool autoCalculateLocation = true, bool autoCalculateOffset = true, bool autoCalculateStride = true);
     virtual void push(int attribLocation, GLenum type, GLint tupleSize, bool autoCalculateStride = true);
     virtual void push(const char* name, GLenum type, GLint tupleSize, bool autoCalculateStride = true);
-    virtual void push(GLenum type, GLint tupleSize, bool autoCalculateStride = true);
 
-    virtual QVector<ShaderProgramLayoutElement> getElements() const;
+    virtual QVector<BufferLayoutElement> getElements() const;
 
     virtual int getStride() const;
     virtual void setStride(int stride);
@@ -35,11 +34,11 @@ public:
     virtual int calculateStride();
 
 private:
-    QVector<ShaderProgramLayoutElement> m_elements;
+    QVector<BufferLayoutElement> m_elements;
     int m_stride;
 
 };
 
 }
 
-#endif // SHADERPROGRAMLAYOUT_H
+#endif // BUFFERLAYOUT_H

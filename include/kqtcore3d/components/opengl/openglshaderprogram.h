@@ -11,19 +11,18 @@ namespace kqtcore3d {
 class OpenGLShaderProgram : public ShaderProgram
 {
 public:
-    OpenGLShaderProgram(const QString& vertexShaderSource, const QString& fragmentShaderSource, const ShaderProgramLayout& layout);
+    OpenGLShaderProgram(const QString& vsSource, const QString& fsSource, BufferLayout layouts = BufferLayout());
 
     // BaseShaderProgram interface
     virtual bool init() override;
     virtual bool bind() override;
     virtual void release() override;
-    virtual void setAttributeBuffer(int layoutId) override;
-    virtual void setAllAttributeBuffer() override;
+
+    // ShaderProgram interface
     virtual void setAttributeBuffer(int location, GLenum type, int offset, int tupleSize, int stride) override;
     virtual void setAttributeBuffer(const char *name, GLenum type, int offset, int tupleSize, int stride) override;
-
-    // IRenderCallbacks interface
-    virtual void initCallBack() override;
+    virtual void setAttributeBuffer(BufferLayout layouts) override;
+    virtual void setAttributeBuffer() override;
 
     // set uniform
     virtual void setUniformValue(int location, GLfloat value) override {m_program.setUniformValue(location, value);}
@@ -83,8 +82,9 @@ public:
     virtual void setUniformValue(const char *name, const QTransform& value) override {m_program.setUniformValue(name, value);}
 
 
-private:
+protected:
     QOpenGLShaderProgram m_program;
+
 };
 
 }

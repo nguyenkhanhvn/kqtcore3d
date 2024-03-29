@@ -1,5 +1,5 @@
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef KQTCORE3DUTILS_H
+#define KQTCORE3DUTILS_H
 
 
 #include <QDebug>
@@ -33,4 +33,4 @@ enum CameraControl
 
 }
 
-#endif // COMMON_H
+#endif // KQTCORE3DUTILS_H

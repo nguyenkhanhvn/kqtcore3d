@@ -20,14 +20,6 @@ QSharedPointer<Model> Model::create(const QVector<QSharedPointer<BaseMesh> > &me
     return nullptr;
 }
 
-void Model::render(QSharedPointer<IRenderCallbacks> callback)
-{
-#ifdef RENDER_LOG
-    LOG;
-#endif
-    ALL_MESHES_DO_FUNCTION(render, callback)
-}
-
 Model::Model(const QVector<QSharedPointer<BaseMesh> > &meshes, QSharedPointer<IModelImporter> importer) :
     BaseModel(meshes, importer)
 {}

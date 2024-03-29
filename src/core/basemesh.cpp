@@ -4,7 +4,7 @@ namespace kqtcore3d
 {
 
 BaseMesh::BaseMesh(const QSharedPointer<IVertices> &vertices, const QSharedPointer<IIndices> &indices, QMatrix4x4 meshMatrix) :
-    m_vertices(vertices), m_indices(indices), m_meshMatrix(meshMatrix)
+    m_vertices(vertices), m_indices(indices), m_transformationMatrix(meshMatrix)
 {}
 
 BaseMesh::~BaseMesh() {}
@@ -29,48 +29,48 @@ void BaseMesh::setIndices(const QSharedPointer<IIndices> &newIndices)
     m_indices = newIndices;
 }
 
-QMatrix4x4 BaseMesh::getMeshMatrix() const
+QMatrix4x4 BaseMesh::getTransformationMatrix() const
 {
-    return m_meshMatrix;
+    return m_transformationMatrix;
 }
 
-void BaseMesh::setMeshMatrix(QMatrix4x4 newMeshMatrix)
+void BaseMesh::setTransformationMatrix(QMatrix4x4 newTransformationMatrix)
 {
-    if(m_meshMatrix == newMeshMatrix) return;
-    m_meshMatrix = newMeshMatrix;
+    if(m_transformationMatrix == newTransformationMatrix) return;
+    m_transformationMatrix = newTransformationMatrix;
 }
 
 void BaseMesh::translate(const QVector3D &vector)
 {
-    m_meshMatrix.translate(vector);
+    m_transformationMatrix.translate(vector);
 }
 
 void BaseMesh::translate(float x, float y)
 {
-    m_meshMatrix.translate(x, y);
+    m_transformationMatrix.translate(x, y);
 }
 
 void BaseMesh::translate(float x, float y, float z)
 {
-    m_meshMatrix.translate(x, y, z);
-}
-
-void BaseMesh::rotate(float angle, const QVector3D &rotateAxis)
-{
-    m_meshMatrix.rotate(angle, rotateAxis);
+    m_transformationMatrix.translate(x, y, z);
 }
 
 void BaseMesh::rotate(float angle, float x, float y, float z)
 {
-    m_meshMatrix.rotate(angle, x, y, z);
+    m_transformationMatrix.rotate(angle, x, y, z);
 }
 
 void BaseMesh::rotate(const QQuaternion &quaternion)
 {
-    m_meshMatrix.rotate(quaternion);
+    m_transformationMatrix.rotate(quaternion);
 }
 
-void BaseMesh::rotateGlobal(float angle, const QVector3D &rotateAxis, const QVector3D &rotatePoint)
+void BaseMesh::rotate(const QVector3D &rotateAxis, float angle)
+{
+    m_transformationMatrix.rotate(angle, rotateAxis);
+}
+
+void BaseMesh::rotateGlobal(const QVector3D &rotateAxis, float angle, const QVector3D &rotatePoint)
 {
     QMatrix4x4 beforeRotation;
     beforeRotation.translate(-rotatePoint);
@@ -78,27 +78,27 @@ void BaseMesh::rotateGlobal(float angle, const QVector3D &rotateAxis, const QVec
     globalRotation.rotate(angle, rotateAxis);
     QMatrix4x4 afterRotation;
     afterRotation.translate(rotatePoint);
-    m_meshMatrix = beforeRotation * globalRotation * afterRotation * m_meshMatrix;
+    m_transformationMatrix = beforeRotation * globalRotation * afterRotation * m_transformationMatrix;
 }
 
 void BaseMesh::scale(const QVector3D &vector)
 {
-    m_meshMatrix.scale(vector);
+    m_transformationMatrix.scale(vector);
 }
 
 void BaseMesh::scale(float x, float y)
 {
-    m_meshMatrix.scale(x, y);
+    m_transformationMatrix.scale(x, y);
 }
 
 void BaseMesh::scale(float x, float y, float z)
 {
-    m_meshMatrix.scale(x, y, z);
+    m_transformationMatrix.scale(x, y, z);
 }
 
 void BaseMesh::scale(float factor)
 {
-    m_meshMatrix.scale(factor);
+    m_transformationMatrix.scale(factor);
 }
 
 }

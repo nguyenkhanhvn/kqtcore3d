@@ -5,6 +5,5 @@
 #include "basemesh.h"
 #include "basemodel.h"
 #include "baseshaderprogram.h"
-#include "shaderprogramlayout.h"
 
 #endif // CORE_H

@@ -1,6 +1,6 @@
 #include "opengl/openglmesh.h"
 
-#include "common.h"
+#include "kqtcore3dutils.h"
 
 namespace kqtcore3d
 {
@@ -12,7 +12,7 @@ OpenGLMesh::OpenGLMesh(const QSharedPointer<IVertices> &vertices, const QSharedP
     m_ebo(QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::IndexBuffer))
 {}
 
-bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callback)
+bool OpenGLMesh::init(RenderCallback callback)
 {
     LOG;
     if(!m_vao->isCreated()) m_vao->create();
@@ -50,10 +50,11 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callback)
             }
         }
 
-        if (!callback.isNull())
-        {
-            callback->initCallBack();
-        }
+        if(callback.initCallBack) callback.initCallBack(this);
+
+        m_vao->release();
+        m_vbo->release();
+        m_ebo->release();
 
         return true;
     }
@@ -67,22 +68,12 @@ bool OpenGLMesh::init(QSharedPointer<IRenderCallbacks> callback)
     return false;
 }
 
-void OpenGLMesh::render(QSharedPointer<IRenderCallbacks> callback)
+void OpenGLMesh::render(RenderCallback callback)
 {
 #ifdef RENDER_LOG
     LOG;
 #endif
-    if(m_indices.isNull()) return;
-
-    m_vao->bind();
-
-    if(!callback.isNull()) callback->beforeRenderCallBack();
-
-    glDrawElements(GL_TRIANGLES, m_indices->getSize(), m_indices->getType(), 0);
-
-    if(!callback.isNull()) callback->afterRenderCallBack();
-
-    m_vao->release();
+    drawElements(GL_TRIANGLES, m_indices->getSize(), 0, callback);
 }
 
 void OpenGLMesh::setVertices(const QSharedPointer<IVertices> &newVertices)
@@ -123,52 +114,50 @@ void OpenGLMesh::setIndices(const QSharedPointer<IIndices> &newIndices)
     }
 }
 
-void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices, QSharedPointer<IRenderCallbacks> callback)
+void OpenGLMesh::drawElements(GLenum mode, GLsizei count, const GLvoid *indices, RenderCallback callback)
 {
 #ifdef RENDER_LOG
     LOG << "mode: " << mode << ", count: " << count;
 #endif
-    if(m_indices.isNull()) return;
-
     m_vao->bind();
 
-    if(!callback.isNull()) callback->beforeRenderCallBack();
+    if(callback.beforeRenderCallBack) callback.beforeRenderCallBack(this);
 
     glDrawElements(mode, count, m_indices->getType(), indices);
 
-    if(!callback.isNull()) callback->afterRenderCallBack();
+    if(callback.afterRenderCallBack) callback.afterRenderCallBack(this);
 
     m_vao->release();
 }
 
-void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, QSharedPointer<IRenderCallbacks> callback)
+void OpenGLMesh::drawArrays(GLenum mode, GLint first, const GLint count, RenderCallback callback)
 {
 #ifdef RENDER_LOG
     LOG << "mode: " << mode << ", first: " << first << ", count: " << count;
 #endif
     m_vao->bind();
 
-    if(!callback.isNull()) callback->beforeRenderCallBack();
+    if(callback.beforeRenderCallBack) callback.beforeRenderCallBack(this);
 
     glDrawArrays(mode, first, count);
 
-    if(!callback.isNull()) callback->afterRenderCallBack();
+    if(callback.afterRenderCallBack) callback.afterRenderCallBack(this);
 
     m_vao->release();
 }
 
-void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, QSharedPointer<IRenderCallbacks> callback)
+void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, RenderCallback callback)
 {
 #ifdef RENDER_LOG
     LOG;
 #endif
     m_vao->bind();
 
-    if(!callback.isNull()) callback->beforeRenderCallBack();
+    if(callback.beforeRenderCallBack) callback.beforeRenderCallBack(this);
 
     drawFunction();
 
-    if(!callback.isNull()) callback->afterRenderCallBack();
+    if(callback.afterRenderCallBack) callback.afterRenderCallBack(this);
 
     m_vao->release();
 }

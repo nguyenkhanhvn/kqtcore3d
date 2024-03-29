@@ -9,6 +9,21 @@ BaseModel::BaseModel(const QVector<QSharedPointer<BaseMesh> > &meshes, QSharedPo
 
 BaseModel::~BaseModel() {}
 
+bool BaseModel::init(RenderCallback callback)
+{
+    bool result = true;
+    for (const QSharedPointer<BaseMesh>& mesh : m_meshes)
+    {
+        result &= mesh->init(callback);
+    }
+    return result;
+}
+
+void BaseModel::render(RenderCallback callback)
+{
+    ALL_MESHES_DO_FUNCTION(render, callback)
+}
+
 bool BaseModel::loadModel(const QString &filename)
 {
     if(!m_importer.isNull())
@@ -85,11 +100,6 @@ void BaseModel::translate(float x, float y, float z)
     ALL_MESHES_DO_FUNCTION(translate, x, y, z);
 }
 
-void BaseModel::rotate(float angle, const QVector3D &rotateAxis)
-{
-    ALL_MESHES_DO_FUNCTION(rotate, angle, rotateAxis);
-}
-
 void BaseModel::rotate(float angle, float x, float y, float z)
 {
     ALL_MESHES_DO_FUNCTION(rotate, angle, x, y, z);
@@ -100,9 +110,14 @@ void BaseModel::rotate(const QQuaternion &quaternion)
     ALL_MESHES_DO_FUNCTION(rotate, quaternion);
 }
 
-void BaseModel::rotateGlobal(float angle, const QVector3D &rotateAxis, const QVector3D &rotatePoint)
+void BaseModel::rotate(const QVector3D &rotateAxis, float angle)
 {
-    ALL_MESHES_DO_FUNCTION(rotateGlobal, angle, rotateAxis, rotatePoint);
+    ALL_MESHES_DO_FUNCTION(rotate, rotateAxis, angle);
+}
+
+void BaseModel::rotateGlobal(const QVector3D &rotateAxis, float angle, const QVector3D &rotatePoint)
+{
+    ALL_MESHES_DO_FUNCTION(rotateGlobal, rotateAxis, angle, rotatePoint);
 }
 
 void BaseModel::scale(const QVector3D &vector)
