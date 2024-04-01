@@ -12,6 +12,8 @@ class OpenGLModel : public Model
 public:
     OpenGLModel(const QVector<QSharedPointer<BaseMesh>>& meshes = {}, QSharedPointer<IModelImporter> importer = nullptr);
 
+    virtual void destroy();
+
 };
 
 }

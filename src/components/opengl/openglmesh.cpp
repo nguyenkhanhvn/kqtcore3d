@@ -6,15 +6,16 @@ namespace kqtcore3d
 {
 
 OpenGLMesh::OpenGLMesh(const QSharedPointer<IVertices> &vertices, const QSharedPointer<IIndices> &indices, QMatrix4x4 meshMatrix) :
-    Mesh(vertices, indices, meshMatrix),
-    m_vao(QSharedPointer<QOpenGLVertexArrayObject>::create()),
-    m_vbo(QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::VertexBuffer)),
-    m_ebo(QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::IndexBuffer))
+    Mesh(vertices, indices, meshMatrix)
 {}
 
 bool OpenGLMesh::init(RenderCallback callback)
 {
     LOG;
+    m_vao = QSharedPointer<QOpenGLVertexArrayObject>::create();
+    m_vbo = QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::VertexBuffer);
+    m_ebo = QSharedPointer<QOpenGLBuffer>::create(QOpenGLBuffer::IndexBuffer);
+
     if(!m_vao->isCreated()) m_vao->create();
 
     if(m_vao->isCreated())
@@ -160,6 +161,13 @@ void OpenGLMesh::drawByFunction(std::function<void ()> drawFunction, RenderCallb
     if(callback.afterRenderCallBack) callback.afterRenderCallBack(this);
 
     m_vao->release();
+}
+
+void OpenGLMesh::destroy()
+{
+    m_ebo = nullptr;
+    m_vbo = nullptr;
+    m_vao = nullptr;
 }
 
 }

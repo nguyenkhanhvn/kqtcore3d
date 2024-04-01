@@ -31,10 +31,12 @@ public:
     /**** Carefull with this option ****/
     virtual void drawByFunction(std::function<void ()> drawFunction, RenderCallback callback = {});
 
+    virtual void destroy();
+
 protected:
-    const QSharedPointer<QOpenGLVertexArrayObject> m_vao;
-    const QSharedPointer<QOpenGLBuffer> m_vbo;
-    const QSharedPointer<QOpenGLBuffer> m_ebo;
+    QSharedPointer<QOpenGLVertexArrayObject> m_vao;
+    QSharedPointer<QOpenGLBuffer> m_vbo;
+    QSharedPointer<QOpenGLBuffer> m_ebo;
 
 };
 
