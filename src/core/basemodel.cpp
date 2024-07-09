@@ -52,6 +52,30 @@ bool BaseModel::loadModelFromMemory(const QByteArray &data)
     return false;
 }
 
+bool BaseModel::loadFromImporter(QSharedPointer<IModelImporter> importer)
+{
+    if(!m_importer.isNull())
+    {
+        ModelImporterData loadedData = m_importer->getLoadedModel();
+        if(loadedData.isLoaded)
+        {
+            m_meshes = loadedData.meshes;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool BaseModel::loadFromImporterData(ModelImporterData importerData)
+{
+    if(importerData.isLoaded)
+    {
+        m_meshes = importerData.meshes;
+        return true;
+    }
+    return false;
+}
+
 QSharedPointer<IModelImporter> BaseModel::getImporter() const
 {
     return m_importer;

@@ -28,6 +28,13 @@ public:
         return sizeof(T);
     }
 
+    QVector<T> getVertices() const {
+        return m_vertices;
+    }
+    void setVertices(QVector<T> vertices) {
+        m_vertices = vertices;
+    }
+
 
     void push(const T& vertex) {
         m_vertices.push_back(vertex);

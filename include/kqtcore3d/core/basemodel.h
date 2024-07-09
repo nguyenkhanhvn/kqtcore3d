@@ -28,6 +28,8 @@ public:
 
     virtual bool loadModel(const QString &filename);
     virtual bool loadModelFromMemory(const QByteArray &data);
+    virtual bool loadFromImporter(QSharedPointer<IModelImporter> importer);
+    virtual bool loadFromImporterData(ModelImporterData importerData);
 
     virtual QSharedPointer<IModelImporter> getImporter() const;
     virtual void setImporter(QSharedPointer<IModelImporter> importer);

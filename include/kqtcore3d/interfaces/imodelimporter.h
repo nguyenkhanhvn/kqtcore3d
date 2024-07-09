@@ -18,6 +18,7 @@ class IModelImporter
 public:
     virtual ModelImporterData loadModel(const QString &filename, QMatrix4x4 matrix = QMatrix4x4()) = 0;
     virtual ModelImporterData loadModelFromMemory(const QByteArray &data, QMatrix4x4 matrix = QMatrix4x4()) = 0;
+    virtual ModelImporterData getLoadedModel() = 0;
 };
 
 }

@@ -81,15 +81,14 @@ void OpenGLMesh::setVertices(const QSharedPointer<IVertices> &newVertices)
 {
     LOG << newVertices;
     if(newVertices.isNull() || m_vertices == newVertices) return;
+    Mesh::setVertices(newVertices);
     if (m_vertices.isNull() || newVertices->getByteSize() > m_vertices->getByteSize()) {
-        Mesh::setVertices(newVertices);
-        if(m_vbo->bind())
+        if(!m_vbo.isNull() && m_vbo->isCreated() && m_vbo->bind())
         {
             m_vbo->allocate(m_vertices->getData(), m_vertices->getByteSize());
         }
     } else {
-        Mesh::setVertices(newVertices);
-        if(m_vbo->bind())
+        if(!m_vbo.isNull() && m_vbo->isCreated() && m_vbo->bind())
         {
             m_vbo->write(0, m_vertices->getData(), m_vertices->getByteSize());
         }
@@ -100,15 +99,14 @@ void OpenGLMesh::setIndices(const QSharedPointer<IIndices> &newIndices)
 {
     LOG << newIndices;
     if(newIndices.isNull() || m_indices == newIndices) return;
+    Mesh::setIndices(newIndices);
     if (m_indices.isNull() || newIndices->getByteSize() > m_indices->getByteSize()) {
-        Mesh::setIndices(newIndices);
-        if(m_ebo->bind())
+        if(!m_ebo.isNull() && m_ebo->isCreated() && m_ebo->bind())
         {
             m_ebo->allocate(m_indices->getData(), m_indices->getByteSize());
         }
     } else {
-        Mesh::setIndices(newIndices);
-        if(m_ebo->bind())
+        if(!m_ebo.isNull() && m_ebo->isCreated() && m_ebo->bind())
         {
             m_ebo->write(0, m_indices->getData(), m_indices->getByteSize());
         }
